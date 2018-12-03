@@ -1,0 +1,10 @@
+.Navigation {
+  margin-left: 100px;
+  padding: 10px;
+  flex-grow: 1;
+}
+
+.NavigationWrapper {
+  display: flex;
+  justify-content: space-between;
+}
