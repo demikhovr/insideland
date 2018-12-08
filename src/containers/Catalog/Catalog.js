@@ -14,9 +14,9 @@ class Catalog extends Component {
         <Navigation />
         <div className={classes.CatalogContent}>
           <Switch>
-            <Route path="/catalog/companies" component={Companies} />
-            <Route path="/catalog/professions" component={Professions} />
-            <Route path="/catalog/producers" component={Producers} />
+            <Route path={`${process.env.PUBLIC_URL}/catalog/companies`} component={Companies} />
+            <Route path={`${process.env.PUBLIC_URL}/catalog/professions`} component={Professions} />
+            <Route path={`${process.env.PUBLIC_URL}/catalog/producers`} component={Producers} />
           </Switch>
         </div>
       </div>

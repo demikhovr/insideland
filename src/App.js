@@ -14,12 +14,12 @@ class App extends Component {
     return (
       <Layout>
         <Switch>
-          <Route path="/" exact component={Main} />
-          <Route path="/catalog" component={Catalog} />
-          <Route path="/vacancies" component={Vacancies} />
-          <Route path="/sign-up" component={SignUp} />
-          <Route path="/sign-in" component={SignIn} />
-          <Redirect to="/" />
+          <Route path={`${process.env.PUBLIC_URL}/`} exact component={Main} />
+          <Route path={`${process.env.PUBLIC_URL}/catalog`} component={Catalog} />
+          <Route path={`${process.env.PUBLIC_URL}/vacancies`} component={Vacancies} />
+          <Route path={`${process.env.PUBLIC_URL}/sign-up`} component={SignUp} />
+          <Route path={`${process.env.PUBLIC_URL}/sign-in`} component={SignIn} />
+          <Redirect to={`${process.env.PUBLIC_URL}/`} />
         </Switch>
       </Layout>
     );

@@ -5,7 +5,7 @@ import Navigation from '../Navigation/Navigation';
 
 const Header = () => (
   <header className={classes.Header}>
-    <NavLink className={classes.HeaderLogo} to="/">Инсайдия</NavLink>
+    <NavLink className={classes.HeaderLogo} to={`${process.env.PUBLIC_URL}/`}>Инсайдия</NavLink>
     <Navigation />
   </header>
 );

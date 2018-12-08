@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 import classes from './UserNav.module.css';
 
 const links = [
-  { to: '/sign-up', label: 'Регистрация', exact: false },
-  { to: '/sign-in', label: 'Войти', exact: false },
+  { to: `${process.env.PUBLIC_URL}/sign-up`, label: 'Регистрация', exact: false },
+  { to: `${process.env.PUBLIC_URL}/sign-in`, label: 'Войти', exact: false },
 ];
 
 const renderLinks = () => links.map((link, index) => {
