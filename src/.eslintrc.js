@@ -6,6 +6,7 @@ module.exports = {
   },
 	"globals": {
 	  "window": "off",
-		"document": "off"
+		"document": "off",
+		"location": "off"
 	}
 };

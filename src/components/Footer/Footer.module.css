@@ -1,12 +1,10 @@
 .Footer {
-  grid-area: footer;
-  background-image: linear-gradient(to right, rgba(52,37,106,1) , rgba(107,67,156,1));
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-left: 50px;
-  padding-right: 50px;
-  color: white;
+  padding: 10px 50px;
+  color: #ffffff;
+  background-image: linear-gradient(to right, rgba(52,37,106,1) , rgba(107,67,156,1));
 }
 
 .FooterWrapper {

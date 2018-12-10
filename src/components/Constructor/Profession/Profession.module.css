@@ -13,12 +13,26 @@
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
 }
 
+.ProfessionTopIcons {
+  display: flex;
+}
+
+.ProfessionTopIcons button {
+  margin-right: auto;
+  cursor: pointer;
+}
+
+.ProfessionTopIcons button:hover i {
+  color: red;
+}
+
 .ProfessionTopIcons i {
   color: #080911;
+  transition: color 0.3s ease;
 }
 
 .ProfessionTopIcons i:nth-of-type(1) {
-  float: left;
+  margin-right: 5px;
 }
 
 .ProfessionTopIcons i:nth-of-type(2) {

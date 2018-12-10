@@ -3,11 +3,14 @@
   list-style: none;
 }
 
-.MainNavItem:not(:first-of-type) .MainNavItemLink {
-  margin-left: 30px;
+.MainNavItem {
+  position: relative;
+  margin: 0 15px;
 }
 
 .MainNavItemLink {
+  display: block;
+  padding: 5px;
   color: white;
   text-decoration: none;
   border-bottom: 1px dashed transparent;
@@ -16,9 +19,25 @@
 
 .MainNavItemLink:hover,
 .MainNavItemLink:focus {
-  border-color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.MainNavItemLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #ffffff;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
 }
 
 .MainNavItemLinkActive {
   border-color: #ffffff;
+}
+
+.MainNavItemLinkActive::after {
+  transform: scaleX(1);
 }

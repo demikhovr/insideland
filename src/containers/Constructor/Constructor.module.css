@@ -1,11 +1,11 @@
-.Catalog {
+.Constructor {
   display: flex;
   flex-grow: 1;
   flex-direction: column;
   height: 100%;
 }
 
-.CatalogContent {
+.ConstructorContent {
   flex-grow: 1;
   background-color: rgba(242,242,254,1);
   margin-top: 5px;
