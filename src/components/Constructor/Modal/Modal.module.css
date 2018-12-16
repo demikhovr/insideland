@@ -9,6 +9,7 @@
 }
 
 .Modal {
+  position: relative;
   background-color: #ffffff;
   border-radius: 5px;
   max-width: 300px;
@@ -32,4 +33,33 @@
 .ModalBtn:focus {
   background-color: rgba(0, 0, 0, 0.5);
   color: #ffffff
+}
+
+.ModalCloseBtn {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 15px;
+  height: 15px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.ModalCloseBtn::before,
+.ModalCloseBtn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 1px;
+  background-color: #000000;
+}
+
+.ModalCloseBtn::before {
+  transform: translate3d(-50%, -50%, 0) rotate(45deg);
+}
+
+.ModalCloseBtn::after {
+  transform: translate3d(-50%, -50%, 0) rotate(-45deg);
 }

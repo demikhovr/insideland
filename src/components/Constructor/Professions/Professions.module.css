@@ -1,3 +1,48 @@
 .Professions {
   text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
+
+.NewProfessionBtn {
+  position: relative;
+  width: 320px;
+  height: 510px;
+  margin: 20px;
+  padding: 10px;
+  background-color: transparent;
+  border: 2px solid rgba(52, 37, 106, 1);
+  background-repeat: no-repeat;
+  background-clip: content-box;
+  transition: background .6s ease;
+  border-radius: 10px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.NewProfessionBtn::before,
+.NewProfessionBtn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 3px;
+  background-color: rgba(52, 37, 106, 1);
+}
+
+.NewProfessionBtn::before {
+  transform: translate3d(-50%, -50%, 0) rotate(0deg);
+}
+
+.NewProfessionBtn::after {
+  transform: translate3d(-50%, -50%, 0) rotate(-90deg);
+}
+
+.NewProfessionBtn:hover,
+.NewProfessionBtn:focus {
+  filter: drop-shadow(3px 3px 1px rgba(0, 0, 0, 0.15));
+}
+

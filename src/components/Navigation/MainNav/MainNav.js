@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import classes from './MainNav.module.css';
 
@@ -28,10 +29,18 @@ const renderLinks = () => links.map((link, index) => {
   );
 });
 
-const MainNav = () => (
+const MainNav = ({ user }) => (
   <ul className={classes.MainNav}>
-    {renderLinks()}
+    {user && renderLinks()}
   </ul>
 );
+
+MainNav.defaultProps = {
+  user: null,
+};
+
+MainNav.propTypes = {
+  user: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+};
 
 export default MainNav;

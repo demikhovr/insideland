@@ -18,6 +18,8 @@
 
 .transition-group {
   position: relative;
+  flex-grow: 1;
+  background-color: rgba(242,242,254,1);
 }
 
 .route-section {

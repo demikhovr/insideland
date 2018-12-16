@@ -1,37 +1,27 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import classes from './UserNav.module.css';
 
-const links = [
-  { to: `${process.env.PUBLIC_URL}/sign-up`, label: 'Регистрация', exact: false },
-  { to: `${process.env.PUBLIC_URL}/sign-in`, label: 'Войти', exact: false },
-];
-
-const renderLinks = () => links.map((link, index) => {
-  const key = index + link;
-
-  return (
-    <li
-      key={key}
-      className={classes.UserNavItem}
-    >
-      <NavLink
-        to={link.to}
-        exact={link.exact}
-        className={classes.UserNavItemLink}
-        activeClassName={classes.UserNavItemLinkActive}
-      >
-        {link.label}
-      </NavLink>
-    </li>
-  );
-});
-
-
-const UserNav = () => (
-  <ul className={classes.UserNav}>
-    {renderLinks()}
-  </ul>
+const UserNav = ({ user, onLogIn, onLogOut }) => (
+  <div className={classes.UserNav}>
+    {user
+      ? (
+        <div className={classes.UserNavPicWrapper} title={user.displayName}>
+          <img className={classes.UserNavPic} src={user.photoURL} alt={user.displayName} />
+        </div>)
+      : null}
+    <button className={classes.UserNavBtn} type="button" onClick={user ? onLogOut : onLogIn}>{user ? 'Выйти' : 'Войти'}</button>
+  </div>
 );
+
+UserNav.defaultProps = {
+  user: null,
+};
+
+UserNav.propTypes = {
+  user: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  onLogIn: PropTypes.func.isRequired,
+  onLogOut: PropTypes.func.isRequired,
+};
 
 export default UserNav;

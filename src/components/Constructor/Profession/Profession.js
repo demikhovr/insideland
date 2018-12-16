@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import classes from './Profession.module.css';
 
 const Profession = ({
-  id, img, name, title, description, dribble, behance, twitter, isEditable, onRemoveBtnClick,
+  id, img, name, title, description, dribble, behance,
+  twitter, isEditable, onRemoveBtnClick, isFavorite, onFavoriteBtnClick,
 }) => (
   <div className={classes.Profession}>
     <div className={classes.ProfessionWrapper}>
@@ -14,7 +15,9 @@ const Profession = ({
             <i className="fas fa-times" />
           </button>
         )}
-        <i className="far fa-heart" />
+        <button type="button" onClick={() => onFavoriteBtnClick(id)}>
+          <i className={isFavorite ? 'fa fa-heart' : 'far fa-heart'} />
+        </button>
         <i className="fas fa-ellipsis-v" />
       </div>
       <div className={classes.ProfessionProfile}>
@@ -49,17 +52,28 @@ const Profession = ({
   </div>
 );
 
+Profession.defaultProps = {
+  img: '',
+  title: '',
+  dribble: '',
+  behance: '',
+  twitter: '',
+  isEditable: false,
+};
+
 Profession.propTypes = {
-  id: PropTypes.number.isRequired,
-  img: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  img: PropTypes.string,
+  title: PropTypes.string,
   name: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  dribble: PropTypes.string.isRequired,
-  behance: PropTypes.string.isRequired,
-  twitter: PropTypes.string.isRequired,
-  isEditable: PropTypes.bool.isRequired,
+  dribble: PropTypes.string,
+  behance: PropTypes.string,
+  twitter: PropTypes.string,
+  isEditable: PropTypes.bool,
   onRemoveBtnClick: PropTypes.func.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
+  onFavoriteBtnClick: PropTypes.func.isRequired,
 };
 
 export default Profession;

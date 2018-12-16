@@ -1,28 +1,41 @@
 .UserNav {
   display: flex;
+  align-items: center;
   list-style: none;
 }
 
-.UserNavItem {
-  position: relative;
-  margin: 0 15px;
+.UserNavPicWrapper {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
-.UserNavItemLink {
+.UserNavPic {
+  width: 100%;
+  height: auto;
+  margin: auto;
+}
+
+.UserNavBtn {
   display: block;
   padding: 5px;
   color: #ffffff;
+  background-color: transparent;
   text-decoration: none;
   border-bottom: 1px dashed transparent;
+  cursor: pointer;
   transition: border-color 0.3s ease;
 }
 
-.UserNavItemLink:hover,
-.UserNavItemLink:focus {
+.UserNavBtn:hover,
+.UserNavBtn:focus {
   border-color: rgba(255, 255, 255, 0.5);
 }
 
-.UserNavItemLink::after {
+.UserNavBtn::after {
   content: "";
   position: absolute;
   left: 0;
@@ -32,12 +45,4 @@
   background-color: #ffffff;
   transform: scaleX(0);
   transition: transform 0.3s ease;
-}
-
-.UserNavItemLinkActive {
-  border-color: #ffffff;
-}
-
-.UserNavItemLinkActive::after {
-  transform: scaleX(1);
 }
