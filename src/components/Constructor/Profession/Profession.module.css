@@ -3,6 +3,10 @@
   margin: 20px;
 }
 
+.Profession button {
+  background-color: transparent;
+}
+
 .ProfessionWrapper {
   width: 320px;
   min-height: 500px;
@@ -15,14 +19,18 @@
 
 .ProfessionTopIcons {
   display: flex;
+  justify-content: space-between;
 }
 
 .ProfessionTopIcons button {
-  margin-right: auto;
   cursor: pointer;
 }
 
 .ProfessionTopIcons button:hover i {
+  color: red;
+}
+
+.ProfessionTopIcons button .fa-heart {
   color: red;
 }
 

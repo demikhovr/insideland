@@ -1,43 +1,61 @@
-import React from 'react';
+import React, { Component } from 'react';
 import classes from './Professions.module.css';
 import Profession from '../Profession/Profession';
+import firebase from '../../../firebase';
 
-const state = {
-  img: 'https://images.unsplash.com/photo-1484186139897-d5fc6b908812?ixlib=rb-0.3.5&s=9358d797b2e1370884aa51b0ab94f706&auto=format&fit=crop&w=200&q=80%20500w',
-  name: 'Beverly Little',
-  title: 'JAVASCRIPT DEVELOPER',
-  description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque aliquam aliquid porro!',
-  test: {
-    available: 25,
-    passed: 5,
-    all: 30,
-  },
-  social: {
-    dribble: '12.8k',
-    behance: '12.8k',
-    twitter: '12.8k',
-  },
-};
+class Professions extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [],
+    };
+  }
 
-const Professions = () => (
-  <div className={classes.Professions}>
-    {(new Array(10)).fill(null).map((profession, index) => {
-      const key = index;
+  componentDidMount() {
+    this.itemsRef = firebase.database().ref('professions');
+    this.itemsRef.on('value', (snapshot) => {
+      const items = snapshot.val();
+      const newState = [];
+      Object.keys(items || {}).forEach((item) => {
+        newState.unshift({
+          image: items[item].image,
+          id: item,
+          name: items[item].name,
+          title: items[item].title,
+          description: items[item].description,
+          isFavorite: items[item].isFavorite,
+        });
+      });
 
-      return (
-        <Profession
-          key={key}
-          dribble={state.social.dribble}
-          behance={state.social.behance}
-          img={state.img}
-          name={`${index + 1}. ${state.name}`}
-          title={state.title}
-          description={state.description}
-          twitter={state.social.twitter}
-        />
-      );
-    })}
-  </div>
-);
+      this.setState({
+        items: newState,
+      });
+    });
+  }
+
+  render() {
+    const { items } = this.state;
+
+    return (
+      <div className={classes.Professions}>
+        <button className={classes.NewProfessionBtn} onClick={() => this.showModal({}, 'add')} type="button" />
+        {items.map(profession => (
+          <Profession
+            key={profession.id}
+            id={profession.id}
+            isFavorite={profession.isFavorite}
+            image={profession.image}
+            name={profession.name}
+            title={profession.title}
+            description={profession.description}
+            onRemoveBtnClick={() => this.showModal(profession, 'delete')}
+            onFavoriteBtnClick={this.addToFavorite}
+            onEditBtnClick={() => this.showModal(profession, 'edit')}
+          />
+        ))}
+      </div>
+    );
+  }
+}
 
 export default Professions;

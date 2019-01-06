@@ -1,3 +1,52 @@
+.AddNewItemPic {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.AddNewItemImgWrapper {
+  width: 124px;
+  height: 124px;
+}
+
+.AddNewItemImgWrapper img {
+  width: 100%;
+  height: auto;
+  text-align: center;
+}
+
+.AddNewItemPicBtns {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.AddNewItemBtnAddPic,
+.AddNewItemBtnDeletePic {
+  display: block;
+  width: 80px;
+  height: 25px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 5px;
+  border: none;
+  font-weight: 300;
+  font-size: 10px;
+  line-height: 10px;
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: 15px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.16);
+  background: linear-gradient(to right, rgba(52,37,106,1) , rgba(107,67,156,1));
+  outline: none;
+}
+
+.AddNewItemBtnAddPic {
+  margin-bottom: 10px;
+}
+
 .AddNewItemLabel {
   display: block;
   margin-bottom: 20px;
@@ -12,7 +61,36 @@
   padding: 5px;
   width: 100%;
   font-weight: 400;
-  border-bottom: 2px solid rgba(52, 37, 106, 1);
+  font-size: 14px;
+  line-height: 16px;
+  background-color: transparent;
+}
+
+.AddNewItemInput:focus ~ .AddNewItemInputBorder::before {
+  transform: scaleX(1);
+}
+
+.AddNewItemInputBorder {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #cccccc;
+}
+
+.AddNewItemInputBorder::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(52, 37, 106, 1);
+  transform: scaleX(0);
+  transform-origin: 0 0;
+  transition: transform 0.4s ease;
+}
+
+.AddNewItemInputBorderActive::before {
+  transform: scaleX(1);
 }
 
 .AddNewItemActions {

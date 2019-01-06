@@ -6,7 +6,7 @@ import Navigation from '../Navigation/Navigation';
 
 const Header = ({ user, onLogIn, onLogOut }) => (
   <header className={classes.Header}>
-    <NavLink className={classes.HeaderLogo} to={`${process.env.PUBLIC_URL}/`}>Инсайдия</NavLink>
+    <NavLink className={classes.HeaderLogo} to="/">Инсайдия</NavLink>
     <Navigation user={user} onLogIn={onLogIn} onLogOut={onLogOut} />
   </header>
 );

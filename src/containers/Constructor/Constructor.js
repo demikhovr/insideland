@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Route, Switch, withRouter } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import classes from './Constructor.module.css';
 import Navigation from '../../components/Constructor/Navigation/Navigation';
 import Companies from '../../components/Constructor/Companies/Companies';
@@ -97,24 +97,29 @@ const state = [
   },
 ];
 
-const content = ({ location }) => (
-  <TransitionGroup className="transition-group">
-    <CSSTransition
-      key={location.key}
-      timeout={300}
-      classNames="fade"
-    >
-      <section className="route-section">
-        <div className={classes.ConstructorContent}>
-          <Switch location={location}>
-            <Route path={`${process.env.PUBLIC_URL}/constructor/companies`} component={Companies} />
-            <Route path={`${process.env.PUBLIC_URL}/constructor/professions`} render={() => <Professions data={state} />} />
-            <Route path={`${process.env.PUBLIC_URL}/constructor/producers`} component={Producers} />
-          </Switch>
-        </div>
-      </section>
-    </CSSTransition>
-  </TransitionGroup>);
+const content = ({ location }) => {
+  const currentKey = location.pathname.split('/')[1] || '/';
+  const timeout = { enter: 300, exit: 200 };
+
+  return (
+    <TransitionGroup className="transition-group">
+      <CSSTransition
+        key={currentKey}
+        timeout={timeout}
+        classNames="fade"
+      >
+        <section className="route-section">
+          <div className={classes.ConstructorContent}>
+            <Switch location={location}>
+              <Route path={`${process.env.PUBLIC_URL}/constructor/companies`} component={Companies} />
+              <Route path={`${process.env.PUBLIC_URL}/constructor/professions`} render={() => <Professions data={state} />} />
+              <Route path={`${process.env.PUBLIC_URL}/constructor/producers`} component={Producers} />
+            </Switch>
+          </div>
+        </section>
+      </CSSTransition>
+    </TransitionGroup>);
+};
 
 const Content = withRouter(content);
 
@@ -130,9 +135,7 @@ class Constructor extends Component {
 }
 
 content.propTypes = {
-  location: PropTypes.shape({
-    key: PropTypes.string.isRequired,
-  }).isRequired,
+  location: PropTypes.shape().isRequired,
 };
 
 export default Constructor;

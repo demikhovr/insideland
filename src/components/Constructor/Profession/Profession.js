@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classes from './Profession.module.css';
 
+const DEFAULT_IMAGE_SRC = 'img/default.png';
+
 const Profession = ({
-  id, img, name, title, description, dribble, behance,
-  twitter, isEditable, onRemoveBtnClick, isFavorite, onFavoriteBtnClick,
+  id, image, name, title, description, dribble, behance,
+  twitter, isEditable, onRemoveBtnClick, onEditBtnClick, isFavorite, onFavoriteBtnClick,
 }) => (
   <div className={classes.Profession}>
     <div className={classes.ProfessionWrapper}>
@@ -12,16 +14,18 @@ const Profession = ({
         {isEditable
         && (
           <button onClick={() => onRemoveBtnClick(id)} type="button">
-            <i className="fas fa-times" />
+            <i className="far fa-times-circle" />
           </button>
         )}
         <button type="button" onClick={() => onFavoriteBtnClick(id)}>
           <i className={isFavorite ? 'fa fa-heart' : 'far fa-heart'} />
         </button>
-        <i className="fas fa-ellipsis-v" />
+        <button type="button" onClick={() => onEditBtnClick(id)}>
+          <i className="far fa-edit" />
+        </button>
       </div>
       <div className={classes.ProfessionProfile}>
-        <img src={img} className={classes.ProfessionThumbail} alt="" />
+        <img src={image || DEFAULT_IMAGE_SRC} className={classes.ProfessionThumbail} alt="" />
         <div className={classes.ProfessionProfileCheck}><i className="fas fa-check" /></div>
         <h3 className={classes.ProfessionProfileName}>{name}</h3>
         <p className={classes.ProfessionProfileTitle}>{title}</p>
@@ -53,7 +57,7 @@ const Profession = ({
 );
 
 Profession.defaultProps = {
-  img: '',
+  image: '',
   title: '',
   dribble: '',
   behance: '',
@@ -63,7 +67,7 @@ Profession.defaultProps = {
 
 Profession.propTypes = {
   id: PropTypes.string.isRequired,
-  img: PropTypes.string,
+  image: PropTypes.string,
   title: PropTypes.string,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
@@ -74,6 +78,7 @@ Profession.propTypes = {
   onRemoveBtnClick: PropTypes.func.isRequired,
   isFavorite: PropTypes.bool.isRequired,
   onFavoriteBtnClick: PropTypes.func.isRequired,
+  onEditBtnClick: PropTypes.func.isRequired,
 };
 
 export default Profession;

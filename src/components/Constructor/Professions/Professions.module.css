@@ -12,14 +12,12 @@
   margin: 20px;
   padding: 10px;
   background-color: transparent;
-  border: 2px solid rgba(52, 37, 106, 1);
-  background-repeat: no-repeat;
-  background-clip: content-box;
-  transition: background .6s ease;
+  border: 2px solid #cccccc;
   border-radius: 10px;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 40px transparent;
   overflow: hidden;
   cursor: pointer;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .NewProfessionBtn::before,
@@ -30,7 +28,8 @@
   left: 50%;
   width: 70px;
   height: 3px;
-  background-color: rgba(52, 37, 106, 1);
+  background-color: #cccccc;
+  transition: background-color 0.3s ease;
 }
 
 .NewProfessionBtn::before {
@@ -43,6 +42,38 @@
 
 .NewProfessionBtn:hover,
 .NewProfessionBtn:focus {
-  filter: drop-shadow(3px 3px 1px rgba(0, 0, 0, 0.15));
+  border-color: rgba(52, 37, 106, 1);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
 }
 
+.NewProfessionBtn:hover::before,
+.NewProfessionBtn:hover::after,
+.NewProfessionBtn:focus::before,
+.NewProfessionBtn:focus::after {
+  background-color: rgba(52, 37, 106, 1);
+}
+
+.DeleteModal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.DeleteModalBtn {
+  color: #ffffff;
+  width: 100px;
+  height: 35px;
+  outline: none;
+  border: none;
+  display: block;
+  cursor: pointer;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 14px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 70px;
+  box-shadow: 0 13px 26px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.16);
+  background: linear-gradient(to right, rgba(52,37,106,1) , rgba(107,67,156,1));
+}

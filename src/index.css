@@ -36,7 +36,7 @@ body {
 }
 
 .btn {
-  color: #fff;
+  color: #ffffff;
   width: 130px;
   height: 42px;
   outline: none;
@@ -49,4 +49,8 @@ body {
   border-radius: 70px;
   box-shadow: 0 13px 26px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.16);
   background: linear-gradient(to right, rgba(52,37,106,1) , rgba(107,67,156,1));
+}
+
+.fa.fa-heart {
+  color: red !important;
 }

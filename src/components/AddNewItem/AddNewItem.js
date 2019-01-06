@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import ReactFileReader from 'react-file-reader';
 import classes from './AddNewItem.module.css';
+
+const DEFAULT_IMAGE_SRC = 'img/default.png';
+const DEFAULT_IMAGE_ALT = 'Default image';
 
 class AddNewItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      image: '',
       name: '',
       title: '',
       description: '',
@@ -13,6 +18,27 @@ class AddNewItem extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onReset = this.onReset.bind(this);
+    this.handleFiles = this.handleFiles.bind(this);
+    this.removeImage = this.removeImage.bind(this);
+    this.getNameRef = this.getNameRef.bind(this);
+  }
+
+  componentDidMount() {
+    const { props } = this;
+
+    if (props.data) {
+      setTimeout(() => {
+        this.setState({
+          image: {
+            base64: props.data.image || DEFAULT_IMAGE_SRC,
+            fileList: [{}],
+          },
+          name: props.data.name,
+          title: props.data.title,
+          description: props.data.description,
+        });
+      });
+    }
   }
 
   onChange({ target }) {
@@ -24,70 +50,127 @@ class AddNewItem extends Component {
   onSubmit(evt) {
     evt.preventDefault();
     const { state, props } = this;
-    props.onSubmit(state);
-    this.reset();
+    props.onAddItem(state)
+      .then(() => {
+        this.reset();
+      });
   }
 
   onReset() {
     this.reset();
   }
 
+  getNameRef(nameRef) {
+    this.nameRef = nameRef;
+  }
+
+  removeImage() {
+    this.setState({
+      image: '',
+    });
+  }
+
   reset() {
     this.setState({
+      image: '',
       name: '',
       title: '',
       description: '',
     });
   }
 
+  handleFiles(files) {
+    this.setState({
+      image: files,
+    });
+  }
+
   render() {
     const { state } = this;
+    const imgSrc = state.image ? state.image.base64 : DEFAULT_IMAGE_SRC;
+    const imgAlt = state.image ? state.image.fileList[0].name : DEFAULT_IMAGE_ALT;
 
     return (
-      <section className={classes.AddNewItem}>
-        <form className={classes.AddNewItemForm} onSubmit={this.onSubmit}>
-          <label className={classes.AddNewItemLabel} htmlFor="name">
-            <input
-              className={classes.AddNewItemInput}
-              type="text"
-              id="name"
-              name="name"
-              value={state.name}
-              onChange={this.onChange}
-              placeholder="Name"
-              required
+      <form
+        className={classes.AddNewItemForm}
+        onSubmit={this.onSubmit}
+        autoComplete="off"
+      >
+        <div className={classes.AddNewItemPic}>
+          <div className={classes.AddNewItemImgWrapper}>
+            <img
+              src={imgSrc}
+              alt={imgAlt}
             />
-          </label>
-          <label className={classes.AddNewItemLabel} htmlFor="title">
-            <input
-              className={classes.AddNewItemInput}
-              type="text"
-              id="title"
-              name="title"
-              value={state.title}
-              onChange={this.onChange}
-              placeholder="Title"
-              required
-            />
-          </label>
-          <label className={classes.AddNewItemLabel} htmlFor="description">
-            <input
-              className={classes.AddNewItemInput}
-              type="text"
-              id="description"
-              name="description"
-              value={state.description}
-              onChange={this.onChange}
-              placeholder="Description"
-              required
-            />
-          </label>
-          <div className={classes.AddNewItemActions}>
-            <button className={classes.AddNewItemActionBtn} type="submit">Submit</button>
-            <button className={classes.AddNewItemActionBtn} type="button" onClick={this.onReset}>Reset</button>
           </div>
-        </form>
-      </section>
+          <div className={classes.AddNewItemPicBtns}>
+            <ReactFileReader
+              handleFiles={this.handleFiles}
+              base64
+              multipleFiles={false}
+            >
+              <button className={classes.AddNewItemBtnAddPic} type="button">Выбрать</button>
+            </ReactFileReader>
+            {state.image
+            && (
+              <button
+                className={classes.AddNewItemBtnDeletePic}
+                type="button"
+                onClick={this.removeImage}
+              >
+                Удалить
+              </button>
+            )}
+          </div>
+        </div>
+        <label className={classes.AddNewItemLabel} htmlFor="name">
+          <input
+            ref={this.getNameRef}
+            className={classes.AddNewItemInput}
+            type="text"
+            id="name"
+            name="name"
+            value={state.name || ''}
+            onChange={this.onChange}
+            placeholder="Название"
+            spellCheck="false"
+            required
+          />
+          <span className={classes.AddNewItemInputBorder} />
+        </label>
+        <label className={classes.AddNewItemLabel} htmlFor="title">
+          <input
+            className={classes.AddNewItemInput}
+            type="text"
+            id="title"
+            name="title"
+            value={state.title || ''}
+            onChange={this.onChange}
+            placeholder="Заголовок"
+            spellCheck="false"
+            required
+          />
+          <span className={classes.AddNewItemInputBorder} />
+        </label>
+        <label className={classes.AddNewItemLabel} htmlFor="description">
+          <input
+            className={classes.AddNewItemInput}
+            type="text"
+            id="description"
+            name="description"
+            value={state.description || ''}
+            onChange={this.onChange}
+            placeholder="Описание"
+            spellCheck="false"
+            required
+          />
+          <span className={classes.AddNewItemInputBorder} />
+        </label>
+        <div className={classes.AddNewItemActions}>
+          <button className={classes.AddNewItemActionBtn} type="submit">Submit</button>
+          <button className={classes.AddNewItemActionBtn} type="button" onClick={this.onReset}>Reset</button>
+        </div>
+      </form>
     );
   }
 }
