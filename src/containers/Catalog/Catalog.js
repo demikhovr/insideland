@@ -22,9 +22,9 @@ const content = ({ location }) => {
         <section className="route-section">
           <div className={classes.CatalogContent}>
             <Switch location={location}>
-              <Route path={`${process.env.PUBLIC_URL}/catalog/companies`} component={Companies} />
-              <Route path={`${process.env.PUBLIC_URL}/catalog/professions`} component={Professions} />
-              <Route path={`${process.env.PUBLIC_URL}/catalog/producers`} component={Producers} />
+              <Route path="/catalog/companies" component={Companies} />
+              <Route path="/catalog/professions" component={Professions} />
+              <Route path="/catalog/producers" component={Producers} />
             </Switch>
           </div>
         </section>

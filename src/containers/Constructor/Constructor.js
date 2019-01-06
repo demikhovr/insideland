@@ -111,9 +111,9 @@ const content = ({ location }) => {
         <section className="route-section">
           <div className={classes.ConstructorContent}>
             <Switch location={location}>
-              <Route path={`${process.env.PUBLIC_URL}/constructor/companies`} component={Companies} />
-              <Route path={`${process.env.PUBLIC_URL}/constructor/professions`} render={() => <Professions data={state} />} />
-              <Route path={`${process.env.PUBLIC_URL}/constructor/producers`} component={Producers} />
+              <Route path="/constructor/companies" component={Companies} />
+              <Route path="/constructor/professions" render={() => <Professions data={state} />} />
+              <Route path="/constructor/producers" component={Producers} />
             </Switch>
           </div>
         </section>

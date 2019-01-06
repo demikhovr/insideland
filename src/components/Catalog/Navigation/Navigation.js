@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom';
 import classes from './Navigation.module.css';
 
 const links = [
-  { to: `${process.env.PUBLIC_URL}/catalog/companies`, label: 'Компании', exact: false },
-  { to: `${process.env.PUBLIC_URL}/catalog/professions`, label: 'Профессии', exact: false },
-  { to: `${process.env.PUBLIC_URL}/catalog/producers`, label: 'Производители тестов', exact: false },
+  { to: '/catalog/companies', label: 'Компании', exact: false },
+  { to: '/catalog/professions', label: 'Профессии', exact: false },
+  { to: '/catalog/producers', label: 'Производители тестов', exact: false },
 ];
 
 const renderLinks = () => links.map((link, index) => {
