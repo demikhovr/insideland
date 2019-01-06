@@ -50,9 +50,15 @@ class AddNewItem extends Component {
   onSubmit(evt) {
     evt.preventDefault();
     const { state, props } = this;
+    this.setState({
+      isSaving: true,
+    });
     props.onAddItem(state)
       .then(() => {
         this.reset();
+        this.setState({
+          isSaving: false,
+        });
       });
   }
 
@@ -96,6 +102,7 @@ class AddNewItem extends Component {
         onSubmit={this.onSubmit}
         autoComplete="off"
       >
+        {state.isSaving && <div className={classes.AddNewItemPicSpinner} />}
         <div className={classes.AddNewItemPic}>
           <div className={classes.AddNewItemImgWrapper}>
             <img
