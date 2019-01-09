@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
+import firebase from 'firebase';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
-import classes from './Professions.module.css';
-import AddNewItem from '../../AddNewItem/AddNewItem';
-import Profession from '../Profession/Profession';
-import firebase from '../../../firebase';
+import classes from '../components/ProfessionList/ProfessionList.module.css';
+import EditItemModal from '../components/EditItemModal/EditItemModal';
 
-class Professions extends Component {
+const withSubscriptionAndEditor = WrappedComponent => class extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +14,7 @@ class Professions extends Component {
         visible: false,
         id: null,
       },
-      items: [],
+      data: [],
     };
 
     this.removeCard = this.removeCard.bind(this);
@@ -43,7 +42,7 @@ class Professions extends Component {
       });
 
       this.setState({
-        items: newState,
+        data: newState,
       });
     });
   }
@@ -57,21 +56,22 @@ class Professions extends Component {
       const itemsRef = firebase.database().ref('professions');
       const storageRef = firebase.storage().ref('professions');
       const item = {
-        image: data.image ? data.image.base64 : null,
         name: data.name,
         title: data.title,
         description: data.description,
         isFavorite: false,
       };
-      itemsRef.push(item);
 
       if (data.image) {
         const imageFile = data.image;
-        const uploadTask = storageRef.child(imageFile.fileList[0].name).putString(imageFile.base64.split(',')[1], 'base64', { contentType: imageFile.fileList[0].type });
+        const uploadTask = storageRef.child(imageFile.fileList[0].name).put(imageFile.fileList[0]);
         uploadTask.then(
-          () => {
-            resolve();
-            this.hideModal();
+          (snapshot) => {
+            snapshot.ref.getDownloadURL().then((downloadURL) => {
+              item.image = downloadURL;
+              itemsRef.push(item);
+              this.hideModal();
+            });
           },
           () => {
             reject();
@@ -86,13 +86,15 @@ class Professions extends Component {
   }
 
   showModal(data, action) {
+    const { state } = this;
+    const itemData = state.data.filter(item => item.id === data)[0];
     this.setState({
       modal: {
         isRendered: true,
         visible: true,
-        id: data.id,
+        id: data,
         action,
-        data,
+        data: itemData,
       },
     });
   }
@@ -132,8 +134,8 @@ class Professions extends Component {
   }
 
   addToFavorite(id) {
-    const { items } = this.state;
-    const targetItem = items.filter(item => item.id === id)[0];
+    const { data } = this.state;
+    const targetItem = data.filter(item => item.id === id)[0];
     const itemRef = firebase.database().ref(`/professions/${id}`);
     itemRef.update({ isFavorite: !targetItem.isFavorite });
   }
@@ -153,26 +155,18 @@ class Professions extends Component {
   }
 
   render() {
-    const { items, modal } = this.state;
+    const { data, modal } = this.state;
+    const edit = {
+      isEditable: true,
+      onRemove: profession => this.showModal(profession, 'delete'),
+      onAddToFavorites: this.addToFavorite,
+      onEdit: profession => this.showModal(profession, 'edit'),
+    };
 
     return (
       <div className={classes.Professions}>
         <button className={classes.NewProfessionBtn} onClick={() => this.showModal({}, 'add')} type="button" />
-        {items.map(profession => (
-          <Profession
-            key={profession.id}
-            id={profession.id}
-            isFavorite={profession.isFavorite}
-            image={profession.image}
-            name={profession.name}
-            title={profession.title}
-            description={profession.description}
-            isEditable
-            onRemoveBtnClick={() => this.showModal(profession, 'delete')}
-            onFavoriteBtnClick={this.addToFavorite}
-            onEditBtnClick={() => this.showModal(profession, 'edit')}
-          />
-        ))}
+        <WrappedComponent data={data} editor={edit} />
         <Rodal
           visible={modal.visible && modal.action === 'delete'}
           width={300}
@@ -195,7 +189,7 @@ class Professions extends Component {
             onClose={this.hideModal}
             onAnimationEnd={() => !modal.visible && this.setState({ modal: { isRendered: false } })}
           >
-            <AddNewItem onAddItem={data => this.addItem(data)} />
+            <EditItemModal onAddItem={itemData => this.addItem(itemData)} />
           </Rodal>
         )}
         {modal.isRendered && modal.action === 'edit'
@@ -208,12 +202,12 @@ class Professions extends Component {
             onClose={this.hideModal}
             onAnimationEnd={() => !modal.visible && this.setState({ modal: { isRendered: false } })}
           >
-            <AddNewItem data={modal.data} onAddItem={data => this.editItem(data)} />
+            <EditItemModal data={modal.data} onAddItem={itemData => this.editItem(itemData)} />
           </Rodal>
         )}
       </div>
     );
   }
-}
+};
 
-export default Professions;
+export default withSubscriptionAndEditor;

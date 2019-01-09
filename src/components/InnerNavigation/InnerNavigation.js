@@ -1,14 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import classes from './Navigation.module.css';
+import PropTypes from 'prop-types';
+import classes from './InnerNavigation.module.css';
 
-const links = [
-  { to: '/catalog/companies', label: 'Компании', exact: false },
-  { to: '/catalog/professions', label: 'Профессии', exact: false },
-  { to: '/catalog/producers', label: 'Производители тестов', exact: false },
-];
-
-const renderLinks = () => links.map((link, index) => {
+const renderLinks = linksArr => linksArr.map((link, index) => {
   const key = index + link;
 
   return (
@@ -28,10 +23,14 @@ const renderLinks = () => links.map((link, index) => {
   );
 });
 
-const Navigation = () => (
+const InnerNavigation = ({ links }) => (
   <nav className={classes.Navigation}>
-    {renderLinks()}
+    {renderLinks(links)}
   </nav>
 );
 
-export default Navigation;
+InnerNavigation.propTypes = {
+  links: PropTypes.instanceOf(Array).isRequired,
+};
+
+export default InnerNavigation;

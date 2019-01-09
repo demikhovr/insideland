@@ -8,6 +8,7 @@ const config = {
   storageBucket: 'insideland-a1eae.appspot.com',
   messagingSenderId: '110475419154',
 };
+
 firebase.initializeApp(config);
 export const provider = new firebase.auth.GoogleAuthProvider();
 export const auth = firebase.auth();

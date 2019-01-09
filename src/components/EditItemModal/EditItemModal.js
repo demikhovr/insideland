@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import ReactFileReader from 'react-file-reader';
-import classes from './AddNewItem.module.css';
+import classes from './EditItemModal.module.css';
 
 const DEFAULT_IMAGE_SRC = 'img/default.png';
 const DEFAULT_IMAGE_ALT = 'Default image';
 
-class AddNewItem extends Component {
+class EditItemModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,6 +24,7 @@ class AddNewItem extends Component {
   }
 
   componentDidMount() {
+    setTimeout(() => this.nameRef.focus(), 400);
     const { props } = this;
 
     if (props.data) {
@@ -118,7 +119,7 @@ class AddNewItem extends Component {
             >
               <button className={classes.AddNewItemBtnAddPic} type="button">Выбрать</button>
             </ReactFileReader>
-            {state.image
+            {state.image && state.image.base64 !== DEFAULT_IMAGE_SRC
             && (
               <button
                 className={classes.AddNewItemBtnDeletePic}
@@ -182,4 +183,4 @@ class AddNewItem extends Component {
   }
 }
 
-export default AddNewItem;
+export default EditItemModal;

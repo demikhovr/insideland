@@ -1,19 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classes from './Layout.module.css';
 
+const Layout = ({ children }) => (
+  <div className={classes.Layout}>
+    <main className={classes.LayoutMain}>
+      { children }
+    </main>
+  </div>
+);
 
-class Layout extends Component {
-  render() {
-    const { props } = this;
+Layout.defaultProps = {
+  children: null,
+};
 
-    return (
-      <div className={classes.Layout}>
-        <main className={classes.LayoutMain}>
-          { props.children }
-        </main>
-      </div>
-    );
-  }
-}
+Layout.propTypes = {
+  children: PropTypes.node,
+};
 
 export default Layout;

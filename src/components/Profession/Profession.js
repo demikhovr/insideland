@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import classes from './Profession.module.css';
 
 const DEFAULT_IMAGE_SRC = 'img/default.png';
@@ -17,11 +18,12 @@ const Profession = ({
             <i className="far fa-times-circle" />
           </button>
         )}
-        <button type="button" onClick={() => isEditable && onFavoriteBtnClick(id)}>
+        <button style={{ margin: '0 auto' }} onClick={() => onFavoriteBtnClick(id)} type="button">
           <i className={isFavorite ? 'fa fa-heart' : 'far fa-heart'} />
         </button>
-        {isEditable && (
-          <button type="button" onClick={() => onEditBtnClick(id)}>
+        {isEditable
+        && (
+          <button onClick={() => onEditBtnClick(id)} type="button">
             <i className="far fa-edit" />
           </button>
         )}
@@ -32,7 +34,12 @@ const Profession = ({
         <h3 className={classes.ProfessionProfileName}>{name}</h3>
         <p className={classes.ProfessionProfileTitle}>{title}</p>
         <p className={classes.ProfessionProfileDescription}>{description}</p>
-        <button className={classes.ProfessionProfileBtn} type="button">Hire Me</button>
+        <NavLink
+          to={`${id}`}
+          className={classes.ProfessionProfileBtn}
+        >
+          Hire me
+        </NavLink>
       </div>
 
       <div className={classes.ProfessionSocialIcons}>
@@ -67,6 +74,12 @@ Profession.defaultProps = {
   isEditable: false,
 };
 
+Profession.defaultProps = {
+  onRemoveBtnClick: () => {},
+  onFavoriteBtnClick: () => {},
+  onEditBtnClick: () => {},
+};
+
 Profession.propTypes = {
   id: PropTypes.string.isRequired,
   image: PropTypes.string,
@@ -77,10 +90,10 @@ Profession.propTypes = {
   behance: PropTypes.string,
   twitter: PropTypes.string,
   isEditable: PropTypes.bool,
-  onRemoveBtnClick: PropTypes.func.isRequired,
   isFavorite: PropTypes.bool.isRequired,
-  onFavoriteBtnClick: PropTypes.func.isRequired,
-  onEditBtnClick: PropTypes.func.isRequired,
+  onRemoveBtnClick: PropTypes.func,
+  onFavoriteBtnClick: PropTypes.func,
+  onEditBtnClick: PropTypes.func,
 };
 
 export default Profession;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Header from './components/Header/Header';
-import Container from './components/Container';
+import Container from './containers/Container';
 import Footer from './components/Footer/Footer';
 import { auth, provider } from './firebase';
 

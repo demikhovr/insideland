@@ -39,19 +39,6 @@
   transition: color 0.3s ease;
 }
 
-.ProfessionTopIcons i:nth-of-type(1) {
-  margin-right: 5px;
-}
-
-.ProfessionTopIcons i:nth-of-type(2) {
-  float: right;
-}
-
-.ProfessionTopIcons i:nth-of-type(3) {
-  float: right;
-  padding-right: .8em;
-}
-
 .ProfessionProfile {
   margin-top: 2.2em;
   position: relative;
@@ -120,9 +107,12 @@
 }
 
 .ProfessionProfileBtn {
+  text-align: center;
+  text-decoration: none;
   color: #fff;
   width: 130px;
   height: 42px;
+  line-height: 42px;
   outline: none;
   border: none;
   display: block;
