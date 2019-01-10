@@ -15,16 +15,16 @@ class EditItemModal extends Component {
       description: '',
     };
 
+    this.nameRef = React.createRef();
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onReset = this.onReset.bind(this);
     this.handleFiles = this.handleFiles.bind(this);
     this.removeImage = this.removeImage.bind(this);
-    this.getNameRef = this.getNameRef.bind(this);
   }
 
   componentDidMount() {
-    setTimeout(() => this.nameRef.focus(), 400);
+    setTimeout(() => this.nameRef.current.focus(), 400);
     const { props } = this;
 
     if (props.data) {
@@ -65,10 +65,6 @@ class EditItemModal extends Component {
 
   onReset() {
     this.reset();
-  }
-
-  getNameRef(nameRef) {
-    this.nameRef = nameRef;
   }
 
   removeImage() {
@@ -133,7 +129,7 @@ class EditItemModal extends Component {
         </div>
         <label className={classes.AddNewItemLabel} htmlFor="name">
           <input
-            ref={this.getNameRef}
+            ref={this.nameRef}
             className={classes.AddNewItemInput}
             type="text"
             id="name"
