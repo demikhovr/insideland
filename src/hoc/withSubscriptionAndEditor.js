@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import firebase from 'firebase';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
-import classes from '../components/ProfessionList/ProfessionList.module.css';
-import EditItemModal from '../components/EditItemModal/EditItemModal';
+import classes from '../components/ProfessionList/ProfessionList.module.scss';
+import EditItemModal from '../components/ProfessionList/EditItemModal/EditItemModal';
 
 const withSubscriptionAndEditor = WrappedComponent => class extends Component {
   constructor(props) {
@@ -136,6 +136,7 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
   addToFavorite(id) {
     const { data } = this.state;
     const targetItem = data.filter(item => item.id === id)[0];
+    console.log(targetItem);
     const itemRef = firebase.database().ref(`/professions/${id}`);
     itemRef.update({ isFavorite: !targetItem.isFavorite });
   }

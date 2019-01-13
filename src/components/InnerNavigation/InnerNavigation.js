@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import classes from './InnerNavigation.module.css';
+import classes from './InnerNavigation.module.scss';
 
 const renderLinks = linksArr => linksArr.map((link, index) => {
   const key = index + link;

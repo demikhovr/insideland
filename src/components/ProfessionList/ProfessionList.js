@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Profession from '../Profession/Profession';
+import Profession from './Profession/Profession';
 
 const ProfessionList = ({ data, editor }) => (
   <React.Fragment>

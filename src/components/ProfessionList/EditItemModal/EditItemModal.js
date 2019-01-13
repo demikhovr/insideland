@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactFileReader from 'react-file-reader';
-import classes from './EditItemModal.module.css';
+import classes from './EditItemModal.module.scss';
 
 const DEFAULT_IMAGE_SRC = 'img/default.png';
 const DEFAULT_IMAGE_ALT = 'Default image';

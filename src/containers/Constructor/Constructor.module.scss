@@ -1,0 +1,25 @@
+.Constructor {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ConstructorContentWrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background-color: rgba(242,242,254,1);
+}
+
+.ConstructorContent {
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 1200px;
+  margin: 0 auto;
+  padding: 15px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 100%;
+}

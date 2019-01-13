@@ -1,0 +1,55 @@
+.TestsTable {
+  border: 2px solid #cccccc;
+  border-radius: 10px;
+  font-size: 14px;
+  background-color: transparent;
+  flex-grow: 1;
+  margin-right: 50px;
+  text-align: center;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.TestsTable:hover {
+  border-color: #34256a;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+}
+
+.TestsTable tr:hover {
+  background-color: #7969e6 !important;
+  color: #ffffff;
+}
+
+.TestsTable tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 5px;
+}
+
+.TestsTable tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 5px;
+}
+
+.TestsTable th {
+  font-weight: 400;
+  padding: 15px 30px;
+}
+
+.TestsTable td {
+  font-weight: 400;
+}
+
+.TestsTable a {
+  padding: 15px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  text-align: center;
+  color: currentColor;
+}
+
+.TestsTable a:focus {
+  text-decoration: none;
+  outline: none;
+}
+

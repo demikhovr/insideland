@@ -1,46 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import classes from './Catalog.module.css';
+import classes from './Catalog.module.scss';
 import InnerNavigation from '../../components/InnerNavigation/InnerNavigation';
 import Companies from '../../components/Companies/Companies';
 import ProfessionList from '../../components/ProfessionList/ProfessionList';
 import withSubscription from '../../hoc/withSubscription';
 import Producers from '../../components/Producers/Producers';
-import './animation.css';
+import ProfessionInfo from '../ProfessionInfo/ProfessionInfo';
+import Quiz from '../Quiz/Quiz';
+import './animation.scss';
 
 const links = [
-  { to: '/catalog/companies/', label: 'Компании', exact: false },
   { to: '/catalog/professions/', label: 'Профессии', exact: false },
+  { to: '/catalog/companies/', label: 'Компании', exact: false },
   { to: '/catalog/producers/', label: 'Производители тестов', exact: false },
 ];
 
 const ProfessionListWithSubscription = withSubscription(ProfessionList);
 
-const content = ({ location }) => {
-  const currentKey = location.pathname.split('/')[1] || '/';
-
-  return (
-    <TransitionGroup className="transition-group">
-      <CSSTransition
-        key={currentKey}
-        timeout={300}
-        classNames="fade"
-      >
-        <section>
-          { /* <section className="route-section"> */ }
-          <div className={classes.CatalogContent}>
-            <Switch location={location}>
-              <Route path="/catalog/companies" component={Companies} />
-              <Route path="/catalog/professions" component={ProfessionListWithSubscription} />
-              <Route path="/catalog/producers" component={Producers} />
-            </Switch>
-          </div>
-        </section>
-      </CSSTransition>
-    </TransitionGroup>);
-};
+const content = ({ location }) => (
+  <div className={classes.CatalogContentWrapper}>
+    <div className={classes.CatalogContent}>
+      <Switch location={location}>
+        <Route path="/catalog/companies/" component={Companies} />
+        <Route path="/catalog/professions/:id/:id" component={Quiz} />
+        <Route path="/catalog/professions/:id/" component={ProfessionInfo} />
+        <Route path="/catalog/professions/" component={ProfessionListWithSubscription} />
+        <Route path="/catalog/producers/" component={Producers} />
+      </Switch>
+    </div>
+  </div>);
 
 const Content = withRouter(content);
 

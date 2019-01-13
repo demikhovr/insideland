@@ -1,47 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import classes from './Constructor.module.css';
+import classes from './Constructor.module.scss';
 import InnerNavigation from '../../components/InnerNavigation/InnerNavigation';
 import Companies from '../../components/Companies/Companies';
 import ProfessionList from '../../components/ProfessionList/ProfessionList';
 import withSubscriptionAndEditor from '../../hoc/withSubscriptionAndEditor';
 import Producers from '../../components/Producers/Producers';
-import './animation.css';
+import ProfessionInfo from '../ProfessionInfo/ProfessionInfo';
+import Quiz from '../Quiz/Quiz';
+import './animation.scss';
 
 const links = [
-  { to: '/constructor/companies/', label: 'Компании', exact: false },
   { to: '/constructor/professions/', label: 'Профессии', exact: false },
+  { to: '/constructor/companies/', label: 'Компании', exact: false },
   { to: '/constructor/producers/', label: 'Производители тестов', exact: false },
 ];
 
 const ProfessionListWithSubscriptionAndEditor = withSubscriptionAndEditor(ProfessionList);
 
-const content = ({ location }) => {
-  const currentKey = location.pathname.split('/')[1] || '/';
-  const timeout = { enter: 300, exit: 200 };
-
-  return (
-    <TransitionGroup className="transition-group">
-      <CSSTransition
-        key={currentKey}
-        timeout={timeout}
-        classNames="fade"
-      >
-        <section>
-          { /* <section className="route-section"> */ }
-          <div className={classes.ConstructorContent}>
-            <Switch location={location}>
-              <Route path="/constructor/companies" component={Companies} />
-              <Route path="/constructor/professions" component={ProfessionListWithSubscriptionAndEditor} />
-              <Route path="/constructor/producers" component={Producers} />
-            </Switch>
-          </div>
-        </section>
-      </CSSTransition>
-    </TransitionGroup>);
-};
+const content = ({ location }) => (
+  <div className={classes.ConstructorContentWrapper}>
+    <div className={classes.ConstructorContent}>
+      <Switch location={location}>
+        <Route path="/constructor/companies/" component={Companies} />
+        <Route path="/constructor/professions/:id/:id" component={Quiz} />
+        <Route path="/constructor/professions/:id/" component={ProfessionInfo} />
+        <Route path="/constructor/professions/" component={ProfessionListWithSubscriptionAndEditor} />
+        <Route path="/constructor/producers/" component={Producers} />
+      </Switch>
+    </div>
+  </div>
+);
 
 const Content = withRouter(content);
 

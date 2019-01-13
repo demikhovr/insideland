@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import classes from './MainNav.module.css';
+import classes from './MainNav.module.scss';
 
 const links = [
   { to: '/', label: 'Главная', exact: true },

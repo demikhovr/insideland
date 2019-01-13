@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classes from './Navigation.module.css';
+import classes from './Navigation.module.scss';
 import MainNav from './MainNav/MainNav';
 import UserNav from './UserNav/UserNav';
 

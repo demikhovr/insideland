@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import classes from './Profession.module.css';
+import classes from './Profession.module.scss';
 
 const DEFAULT_IMAGE_SRC = 'img/default.png';
 
@@ -35,7 +35,7 @@ const Profession = ({
         <p className={classes.ProfessionProfileTitle}>{title}</p>
         <p className={classes.ProfessionProfileDescription}>{description}</p>
         <NavLink
-          to={`${id}`}
+          to={`${id}/`}
           className={classes.ProfessionProfileBtn}
         >
           Hire me
