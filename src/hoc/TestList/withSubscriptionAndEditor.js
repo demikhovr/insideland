@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import firebase from 'firebase';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
-import classes from '../components/ProfessionList/ProfessionList.module.scss';
-import EditItemModal from '../components/ProfessionList/EditItemModal/EditItemModal';
+import classes from '../../components/TestList/TestList.module.scss';
+import EditItemModal from '../../components/TestList/EditItemModal/EditItemModal';
+import Loader from '../../components/UI/Loader/Loader';
 
 const withSubscriptionAndEditor = WrappedComponent => class extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: true,
       modal: {
         isRendered: false,
         visible: false,
@@ -26,9 +28,11 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
   }
 
   componentDidMount() {
-    this.itemsRef = firebase.database().ref('professions');
+    this.itemsRef = firebase.database().ref('tests');
+    console.log(this.itemsRef);
     this.itemsRef.on('value', (snapshot) => {
       const items = snapshot.val();
+      console.log(items);
       const newState = [];
       Object.keys(items || {}).forEach((item) => {
         newState.unshift({
@@ -39,10 +43,13 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
           description: items[item].description,
           isFavorite: items[item].isFavorite,
         });
+
+        console.log(newState);
       });
 
       this.setState({
         data: newState,
+        isLoading: false,
       });
     });
   }
@@ -53,8 +60,8 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
 
   addItem(data) {
     return new Promise((resolve, reject) => {
-      const itemsRef = firebase.database().ref('professions');
-      const storageRef = firebase.storage().ref('professions');
+      const itemsRef = firebase.database().ref('tests');
+      const storageRef = firebase.storage().ref('tests');
       const item = {
         name: data.name,
         title: data.title,
@@ -79,6 +86,7 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
           },
         );
       } else {
+        itemsRef.push(item);
         resolve();
         this.hideModal();
       }
@@ -113,7 +121,7 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
   removeCard(evt) {
     evt.preventDefault();
     const { modal } = this.state;
-    const itemRef = firebase.database().ref(`/professions/${modal.id}`);
+    const itemRef = firebase.database().ref(`/tests/${modal.id}`);
     itemRef.remove();
     this.hideModal();
   }
@@ -136,15 +144,14 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
   addToFavorite(id) {
     const { data } = this.state;
     const targetItem = data.filter(item => item.id === id)[0];
-    console.log(targetItem);
-    const itemRef = firebase.database().ref(`/professions/${id}`);
+    const itemRef = firebase.database().ref(`/tests/${id}`);
     itemRef.update({ isFavorite: !targetItem.isFavorite });
   }
 
   editItem(data) {
     return new Promise(() => {
       const { state } = this;
-      const itemRef = firebase.database().ref(`/professions/${state.modal.id}`);
+      const itemRef = firebase.database().ref(`/tests/${state.modal.id}`);
       itemRef.update({
         ...data,
         image: data.image ? data.image.base64 : null,
@@ -156,18 +163,24 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
   }
 
   render() {
-    const { data, modal } = this.state;
+    const { isLoading, data, modal } = this.state;
     const edit = {
       isEditable: true,
-      onRemove: profession => this.showModal(profession, 'delete'),
+      onRemove: test => this.showModal(test, 'delete'),
       onAddToFavorites: this.addToFavorite,
-      onEdit: profession => this.showModal(profession, 'edit'),
+      onEdit: test => this.showModal(test, 'edit'),
     };
 
     return (
-      <div className={classes.Professions}>
-        <button className={classes.NewProfessionBtn} onClick={() => this.showModal({}, 'add')} type="button" />
-        <WrappedComponent data={data} editor={edit} />
+      <div className={classes.Tests}>
+        {isLoading
+          ? <Loader />
+          : (
+            <React.Fragment>
+              <button className={classes.NewTestBtn} onClick={() => this.showModal({}, 'add')} type="button" />
+              <WrappedComponent data={data} editor={edit} />
+            </React.Fragment>
+          )}
         <Rodal
           visible={modal.visible && modal.action === 'delete'}
           width={300}

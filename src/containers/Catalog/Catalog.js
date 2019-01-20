@@ -3,31 +3,26 @@ import PropTypes from 'prop-types';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import classes from './Catalog.module.scss';
 import InnerNavigation from '../../components/InnerNavigation/InnerNavigation';
-import Companies from '../../components/Companies/Companies';
-import ProfessionList from '../../components/ProfessionList/ProfessionList';
-import withSubscription from '../../hoc/withSubscription';
-import Producers from '../../components/Producers/Producers';
-import ProfessionInfo from '../ProfessionInfo/ProfessionInfo';
+import TestList from '../../components/TestList/TestList';
+import TestInfo from '../../components/TestInfo/TestInfo';
+import testListwithSubscription from '../../hoc/TestList/withSubscription';
+import testInfoWithSubscription from '../../hoc/TestInfo/withSubscription';
 import Quiz from '../Quiz/Quiz';
-import './animation.scss';
 
 const links = [
-  { to: '/catalog/professions/', label: 'Профессии', exact: false },
-  { to: '/catalog/companies/', label: 'Компании', exact: false },
-  { to: '/catalog/producers/', label: 'Производители тестов', exact: false },
+  { to: '/catalog/tests/', label: 'Тесты', exact: false },
 ];
 
-const ProfessionListWithSubscription = withSubscription(ProfessionList);
+const TestListWithSubscription = testListwithSubscription(TestList);
+const TestInfoWithSubscription = testInfoWithSubscription(TestInfo);
 
 const content = ({ location }) => (
   <div className={classes.CatalogContentWrapper}>
     <div className={classes.CatalogContent}>
       <Switch location={location}>
-        <Route path="/catalog/companies/" component={Companies} />
-        <Route path="/catalog/professions/:id/:id" component={Quiz} />
-        <Route path="/catalog/professions/:id/" component={ProfessionInfo} />
-        <Route path="/catalog/professions/" component={ProfessionListWithSubscription} />
-        <Route path="/catalog/producers/" component={Producers} />
+        <Route path="/catalog/tests/:id/:id" component={Quiz} />
+        <Route path="/catalog/tests/:id/" component={TestInfoWithSubscription} />
+        <Route path="/catalog/tests/" component={TestListWithSubscription} />
       </Switch>
     </div>
   </div>);

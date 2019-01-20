@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link, withRouter } from 'react-router-dom';
 import classes from './FinishedQuiz.module.scss';
 
-const FinishedQuiz = ({ results, quiz, onRetry }) => {
+const FinishedQuiz = ({
+  results, quiz, onRetry, location,
+}) => {
   const successCount = Object.keys(results).reduce((total, key) => {
     let counter = total;
 
@@ -44,7 +47,10 @@ const FinishedQuiz = ({ results, quiz, onRetry }) => {
         {quiz.length}
       </p>
       <div>
-        <button onClick={onRetry} type="button">Повторить</button>
+        <button className="btn" onClick={onRetry} type="button">Повторить</button>
+        <Link to={location.state.from}>
+          <button className="btn" type="button">Назад к тестам</button>
+        </Link>
       </div>
     </div>
   );
@@ -54,6 +60,7 @@ FinishedQuiz.propTypes = {
   results: PropTypes.instanceOf(Object).isRequired,
   quiz: PropTypes.instanceOf(Array).isRequired,
   onRetry: PropTypes.func.isRequired,
+  location: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default FinishedQuiz;
+export default withRouter(FinishedQuiz);

@@ -133,7 +133,7 @@ class Quiz extends Component {
   }
 
   render() {
-    const { state } = this;
+    const { state, props } = this;
 
     return (
       <div className={classes.Quiz}>
@@ -146,6 +146,7 @@ class Quiz extends Component {
                 results={state.results}
                 quiz={state.quiz}
                 onRetry={this.onRetryHandler}
+                location={props.location}
               />
             )
             : (

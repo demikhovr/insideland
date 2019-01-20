@@ -1,65 +1,56 @@
-.Profession {
+.Test {
   display: inline-flex;
   margin: 20px;
 }
 
-.Profession button {
+.Test button {
   background-color: transparent;
 }
 
-.ProfessionWrapper {
+.TestWrapper {
   width: 320px;
-  min-height: 500px;
   background: #FDFEFF;
   transition: background .6s ease;
   border-radius: 10px;
-  padding: 20px 20px 20px 20px;
+  padding: 20px 20px 30px;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
 }
 
-.ProfessionTopIcons {
+.TestTopIcons {
   display: flex;
   justify-content: space-between;
 }
 
-.ProfessionTopIcons button {
+.TestTopIcons button {
   cursor: pointer;
 }
 
-.ProfessionTopIcons button:hover i {
+.TestTopIcons button:hover i {
   color: red;
 }
 
-.ProfessionTopIcons button .fa-heart {
+.TestTopIcons button .fa-heart {
   color: red;
 }
 
-.ProfessionTopIcons i {
+.TestTopIcons i {
   color: #080911;
   transition: color 0.3s ease;
 }
 
-.ProfessionProfile {
+.TestProfile {
   margin-top: 2.2em;
   position: relative;
 }
 
-.ProfessionProfile::after {
-  width: 100%;
-  height: 1px;
-  content: ' ';
-  display: block;
-  margin-top: 1.3em;
-  background: #E9EFF6;
-}
-
-.ProfessionProfileCheck {
+.TestProfileCheck {
+  z-index: 100;
   position: absolute;
   right: 5em;
-  bottom: 12.7em;
+  top: 90px;
 }
 
-.ProfessionProfileCheck i {
+.TestProfileCheck i {
   color: #fff;
   width: 20px;
   height: 20px;
@@ -70,7 +61,7 @@
   background: linear-gradient(to bottom right, #C90A6D, #FF48A0);
 }
 
-.ProfessionThumbail {
+.TestThumbail {
   width: 124px;
   height: 124px;
   display: flex;
@@ -81,14 +72,14 @@
   box-shadow: 0 13px 26px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
-.ProfessionProfileName {
+.TestProfileName {
   color: #2D354A;
   font-size: 24px;
   font-weight: 600;
   text-align: center;
 }
 
-.ProfessionProfileTitle {
+.TestProfileTitle {
   color: #7C8097;
   font-size: .75em;
   font-weight: 300;
@@ -98,7 +89,7 @@
   letter-spacing: 1.5px;
   text-transform: uppercase;
 }
-.ProfessionProfileDescription {
+.TestProfileDescription {
   color: #080911;
   font-size: 14px;
   font-weight: 300;
@@ -106,7 +97,7 @@
   margin-bottom: 1.3em;
 }
 
-.ProfessionProfileBtn {
+.TestProfileBtn {
   text-align: center;
   text-decoration: none;
   color: #fff;
@@ -125,49 +116,14 @@
   background: linear-gradient(to bottom right, #C90A6D, #FF48A0);
 }
 
-.ProfessionSocialIcons {
-  display: flex;
-  margin-top: 1.2em;
-  justify-content: space-between;
-}
-
-.ProfessionSocialIcon {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.ProfessionSocialIcon a {
-  color: #fff;
-  width: 60px;
-  height: 60px;
-  font-size: 28px;
-  line-height: 60px;
-  text-align: center;
-  border-radius: 30px;
-  box-shadow: 0 13px 26px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.2);
-}
-
-.ProfessionSocialIcon:nth-of-type(1) a {
-  background: linear-gradient(to bottom right, #C90A6D, #FF48A0);
-}
-
-.ProfessionSocialIcon:nth-of-type(2) a {
-  background: linear-gradient(to bottom right, #5E5AEC, #3F9EFC);
-}
-
-.ProfessionSocialIcon:nth-of-type(3) a {
-  background: linear-gradient(to bottom right, #6452E9, #639FF9);
-}
-
-.ProfessionSocialIcon h4 {
+.TestSocialIcon h4 {
   color: #080911;
   font-size: 1em;
   margin-top: 1.3em;
   margin-bottom: .2em;
 }
 
-.ProfessionSocialIcon p {
+.TestSocialIcon p {
   color: #666B7D;
   font-size: 12px;
 }

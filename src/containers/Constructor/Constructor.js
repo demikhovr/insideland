@@ -3,31 +3,26 @@ import PropTypes from 'prop-types';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import classes from './Constructor.module.scss';
 import InnerNavigation from '../../components/InnerNavigation/InnerNavigation';
-import Companies from '../../components/Companies/Companies';
-import ProfessionList from '../../components/ProfessionList/ProfessionList';
-import withSubscriptionAndEditor from '../../hoc/withSubscriptionAndEditor';
-import Producers from '../../components/Producers/Producers';
-import ProfessionInfo from '../ProfessionInfo/ProfessionInfo';
+import TestList from '../../components/TestList/TestList';
+import TestInfo from '../../components/TestInfo/TestInfo';
+import testListwithSubscriptionAndEditor from '../../hoc/TestList/withSubscriptionAndEditor';
+import testInfoWithSubscriptionAndEditor from '../../hoc/TestInfo/withSubscriptionAndEditor';
 import Quiz from '../Quiz/Quiz';
-import './animation.scss';
 
 const links = [
-  { to: '/constructor/professions/', label: 'Профессии', exact: false },
-  { to: '/constructor/companies/', label: 'Компании', exact: false },
-  { to: '/constructor/producers/', label: 'Производители тестов', exact: false },
+  { to: '/constructor/tests/', label: 'Тесты', exact: false },
 ];
 
-const ProfessionListWithSubscriptionAndEditor = withSubscriptionAndEditor(ProfessionList);
+const TestListWithSubscriptionAndEditor = testListwithSubscriptionAndEditor(TestList);
+const WithSubscriptionAndEditor = testInfoWithSubscriptionAndEditor(TestInfo);
 
 const content = ({ location }) => (
   <div className={classes.ConstructorContentWrapper}>
     <div className={classes.ConstructorContent}>
       <Switch location={location}>
-        <Route path="/constructor/companies/" component={Companies} />
-        <Route path="/constructor/professions/:id/:id" component={Quiz} />
-        <Route path="/constructor/professions/:id/" component={ProfessionInfo} />
-        <Route path="/constructor/professions/" component={ProfessionListWithSubscriptionAndEditor} />
-        <Route path="/constructor/producers/" component={Producers} />
+        <Route path="/constructor/tests/:id/:id" component={Quiz} />
+        <Route path="/constructor/tests/:id/" component={WithSubscriptionAndEditor} />
+        <Route path="/constructor/tests/" component={TestListWithSubscriptionAndEditor} />
       </Switch>
     </div>
   </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import classes from './TestList.module.scss';
+import classes from './TestTable.module.scss';
 
 const TestTypes = {
   numeric: 'Числовые',
@@ -15,11 +15,14 @@ const TestBgColors = {
   logical: '#e4e4fe',
 };
 
-const Td = ({ children, to }) => {
+const Td = ({ children, to, location }) => {
   const content = to ? (
     <NavLink
       className={classes.content}
-      to={to}
+      to={{
+        pathname: to,
+        state: { from: location },
+      }}
     >
       {children}
     </NavLink>
@@ -34,14 +37,16 @@ const Td = ({ children, to }) => {
 
 Td.defaultProps = {
   to: null,
+  children: [],
 };
 
 Td.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   to: PropTypes.string,
+  location: PropTypes.instanceOf(Object).isRequired,
 };
 
-const TestList = ({ tests }) => {
+const TestTable = ({ tests, location }) => {
   const typesMap = new Map();
   const sortedTests = tests.sort((a, b) => {
     const aType = TestTypes[a.type];
@@ -74,25 +79,28 @@ const TestList = ({ tests }) => {
               style={{ backgroundColor: type && TestBgColors[test.type] }}
               key={test.id}
             >
-              <Td to={`${test.id}`}>
+              <Td to={`${test.id}`} location={location}>
                 {`${type}`}
               </Td>
-              <Td to={`${test.id}`}>
+              <Td to={`${test.id}`} location={location}>
                 {`${test.name}`}
               </Td>
-              <Td to={`${test.id}`}>
+              <Td to={`${test.id}`} location={location}>
                 {`${test.questionCount}`}
               </Td>
-              <Td to={`${test.id}`}>
+              <Td to={`${test.id}`} location={location}>
                 {`${test.time}`}
               </Td>
-              <Td to={`${test.id}`}>
-                <img
-                  width="30"
-                  height="30"
-                  src={test.isFinished ? 'img/icon-tick.svg' : 'img/icon-error.svg'}
-                  alt={test.name}
-                />
+              <Td to={`${test.id}`} location={location}>
+                {test.isFinished !== null
+                  ? (
+                    <img
+                      width="30"
+                      height="30"
+                      src={test.isFinished ? 'img/icon-tick.svg' : 'img/icon-error.svg'}
+                      alt={test.name}
+                    />
+                  ) : null}
               </Td>
             </tr>
           );
@@ -102,8 +110,9 @@ const TestList = ({ tests }) => {
   );
 };
 
-TestList.propTypes = {
+TestTable.propTypes = {
   tests: PropTypes.instanceOf(Array).isRequired,
+  location: PropTypes.instanceOf(Object).isRequired,
 };
 
-export default TestList;
+export default TestTable;

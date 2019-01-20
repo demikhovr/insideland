@@ -1,14 +1,16 @@
-.Professions {
+.Tests {
   text-align: center;
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   flex-wrap: wrap;
 }
 
-.NewProfessionBtn {
+.NewTestBtn {
+  align-self: stretch;
   position: relative;
   width: 320px;
-  height: 510px;
+  max-height: 380px;
   margin: 20px;
   padding: 10px;
   background-color: transparent;
@@ -20,8 +22,8 @@
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.NewProfessionBtn::before,
-.NewProfessionBtn::after {
+.NewTestBtn::before,
+.NewTestBtn::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -32,24 +34,24 @@
   transition: background-color 0.3s ease;
 }
 
-.NewProfessionBtn::before {
+.NewTestBtn::before {
   transform: translate3d(-50%, -50%, 0) rotate(0deg);
 }
 
-.NewProfessionBtn::after {
+.NewTestBtn::after {
   transform: translate3d(-50%, -50%, 0) rotate(-90deg);
 }
 
-.NewProfessionBtn:hover,
-.NewProfessionBtn:focus {
+.NewTestBtn:hover,
+.NewTestBtn:focus {
   border-color: rgba(52, 37, 106, 1);
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
 }
 
-.NewProfessionBtn:hover::before,
-.NewProfessionBtn:hover::after,
-.NewProfessionBtn:focus::before,
-.NewProfessionBtn:focus::after {
+.NewTestBtn:hover::before,
+.NewTestBtn:hover::after,
+.NewTestBtn:focus::before,
+.NewTestBtn:focus::after {
   background-color: rgba(52, 37, 106, 1);
 }
 

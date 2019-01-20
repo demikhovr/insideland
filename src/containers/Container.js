@@ -14,9 +14,9 @@ const Container = ({ user }) => (
       ? (
         <Switch>
           <Route path="/" exact component={Main} />
-          <Redirect from="/catalog" exact to="/catalog/professions/" />
+          <Redirect from="/catalog" exact to="/catalog/tests/" />
           <Route path="/catalog/" component={Catalog} />
-          <Redirect from="/constructor" exact to="/constructor/professions/" />
+          <Redirect from="/constructor" exact to="/constructor/tests/" />
           <Route path="/constructor" component={Constructor} />
         </Switch>
       ) : null}

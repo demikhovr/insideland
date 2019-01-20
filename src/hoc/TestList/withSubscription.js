@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
+import Loader from '../../components/UI/Loader/Loader';
 
 const withSubscription = WrappedComponent => class extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data: [],
+      isLoading: true,
     };
   }
 
   componentDidMount() {
-    this.itemsRef = firebase.database().ref('professions');
+    this.itemsRef = firebase.database().ref('tests');
     this.itemsRef.on('value', (snapshot) => {
       const items = snapshot.val();
       const newState = [];
@@ -27,6 +29,7 @@ const withSubscription = WrappedComponent => class extends Component {
 
       this.setState({
         data: newState,
+        isLoading: false,
       });
     });
   }
@@ -37,7 +40,9 @@ const withSubscription = WrappedComponent => class extends Component {
 
   render() {
     const { state, props } = this;
-    return <WrappedComponent data={state.data} editor={props.editor} />;
+    return state.isLoading
+      ? <Loader />
+      : <WrappedComponent data={state.data} editor={props.editor} />;
   }
 };
 
