@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import Loader from '../../components/UI/Loader/Loader';
+import classes from '../../components/TestList/TestList.module.scss';
 
 const withSubscription = WrappedComponent => class extends Component {
   constructor(props) {
@@ -36,9 +37,13 @@ const withSubscription = WrappedComponent => class extends Component {
 
   render() {
     const { state, props } = this;
-    return state.isLoading
-      ? <Loader />
-      : <WrappedComponent data={state.data} editor={props.editor} />;
+    return (
+      <div className={classes.Tests}>
+        {state.isLoading
+          ? <Loader />
+          : <WrappedComponent data={state.data} editor={props.editor} />}
+      </div>
+    );
   }
 };
 

@@ -5,7 +5,7 @@ import classes from './Constructor.module.scss';
 import InnerNavigation from '../../components/InnerNavigation/InnerNavigation';
 import TestList from '../../components/TestList/TestList';
 import TestInfo from '../../components/TestInfo/TestInfo';
-import testListwithSubscriptionAndEditor from '../../hoc/TestList/withSubscriptionAndEditor';
+import testListWithSubscriptionAndEditor from '../../hoc/TestList/withSubscriptionAndEditor';
 import testInfoWithSubscriptionAndEditor from '../../hoc/TestInfo/withSubscriptionAndEditor';
 import Quiz from '../Quiz/Quiz';
 
@@ -13,7 +13,7 @@ const links = [
   { to: '/constructor/tests/', label: 'Тесты', exact: false },
 ];
 
-const TestListWithSubscriptionAndEditor = testListwithSubscriptionAndEditor(TestList);
+const TestListWithSubscriptionAndEditor = testListWithSubscriptionAndEditor(TestList);
 const WithSubscriptionAndEditor = testInfoWithSubscriptionAndEditor(TestInfo);
 
 const content = ({ location }) => (
