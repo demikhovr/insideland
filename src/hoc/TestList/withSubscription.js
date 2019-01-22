@@ -12,20 +12,16 @@ const withSubscription = WrappedComponent => class extends Component {
   }
 
   componentDidMount() {
-    this.itemsRef = firebase.database().ref('tests');
-    this.itemsRef.on('value', (snapshot) => {
-      const items = snapshot.val();
-      const newState = [];
-      Object.keys(items || {}).forEach((item) => {
-        newState.unshift({
-          image: items[item].image,
-          id: item,
-          name: items[item].name,
-          title: items[item].title,
-          description: items[item].description,
-          isFavorite: items[item].isFavorite,
+    this.testsRef = firebase.database().ref('tests');
+    this.testsRef.on('value', (snapshot) => {
+      const tests = snapshot.val();
+      const newState = Object.keys(tests || {})
+        .reverse()
+        .map((id) => {
+          const test = tests[id];
+          test.info.id = id;
+          return test;
         });
-      });
 
       this.setState({
         data: newState,
@@ -35,7 +31,7 @@ const withSubscription = WrappedComponent => class extends Component {
   }
 
   componentWillUnmount() {
-    this.itemsRef.off();
+    this.testsRef.off();
   }
 
   render() {

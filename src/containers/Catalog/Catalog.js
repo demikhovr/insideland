@@ -5,7 +5,7 @@ import classes from './Catalog.module.scss';
 import InnerNavigation from '../../components/InnerNavigation/InnerNavigation';
 import TestList from '../../components/TestList/TestList';
 import TestInfo from '../../components/TestInfo/TestInfo';
-import testListwithSubscription from '../../hoc/TestList/withSubscription';
+import testListWithSubscription from '../../hoc/TestList/withSubscription';
 import testInfoWithSubscription from '../../hoc/TestInfo/withSubscription';
 import Quiz from '../Quiz/Quiz';
 
@@ -13,7 +13,7 @@ const links = [
   { to: '/catalog/tests/', label: 'Тесты', exact: false },
 ];
 
-const TestListWithSubscription = testListwithSubscription(TestList);
+const TestListWithSubscription = testListWithSubscription(TestList);
 const TestInfoWithSubscription = testInfoWithSubscription(TestInfo);
 
 const content = ({ location }) => (

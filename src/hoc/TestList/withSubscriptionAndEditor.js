@@ -15,6 +15,7 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
         isRendered: false,
         visible: false,
         id: null,
+        data: null,
       },
       data: [],
     };
@@ -28,24 +29,16 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
   }
 
   componentDidMount() {
-    this.itemsRef = firebase.database().ref('tests');
-    console.log(this.itemsRef);
-    this.itemsRef.on('value', (snapshot) => {
-      const items = snapshot.val();
-      console.log(items);
-      const newState = [];
-      Object.keys(items || {}).forEach((item) => {
-        newState.unshift({
-          image: items[item].image,
-          id: item,
-          name: items[item].name,
-          title: items[item].title,
-          description: items[item].description,
-          isFavorite: items[item].isFavorite,
+    this.testsRef = firebase.database().ref('tests');
+    this.testsRef.on('value', (snapshot) => {
+      const tests = snapshot.val();
+      const newState = Object.keys(tests || {})
+        .reverse()
+        .map((id) => {
+          const test = tests[id];
+          test.info.id = id;
+          return test;
         });
-
-        console.log(newState);
-      });
 
       this.setState({
         data: newState,
@@ -55,18 +48,20 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
   }
 
   componentWillUnmount() {
-    this.itemsRef.off();
+    this.testsRef.off();
   }
 
   addItem(data) {
     return new Promise((resolve, reject) => {
-      const itemsRef = firebase.database().ref('tests');
+      const testsRef = firebase.database().ref('tests');
       const storageRef = firebase.storage().ref('tests');
       const item = {
-        name: data.name,
-        title: data.title,
-        description: data.description,
-        isFavorite: false,
+        info: {
+          name: data.name,
+          title: data.title,
+          description: data.description,
+          isFavorite: false,
+        },
       };
 
       if (data.image) {
@@ -75,8 +70,8 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
         uploadTask.then(
           (snapshot) => {
             snapshot.ref.getDownloadURL().then((downloadURL) => {
-              item.image = downloadURL;
-              itemsRef.push(item);
+              item.info.image = downloadURL;
+              testsRef.push(item);
               this.hideModal();
             });
           },
@@ -86,7 +81,7 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
           },
         );
       } else {
-        itemsRef.push(item);
+        testsRef.push(item);
         resolve();
         this.hideModal();
       }
@@ -95,14 +90,14 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
 
   showModal(data, action) {
     const { state } = this;
-    const itemData = state.data.filter(item => item.id === data)[0];
+    const itemData = state.data.filter(({ info }) => info.id === data);
     this.setState({
       modal: {
         isRendered: true,
         visible: true,
         id: data,
         action,
-        data: itemData,
+        data: itemData.length ? itemData[0].info : null,
       },
     });
   }
@@ -129,7 +124,10 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
   handleChange(evt) {
     const { newItem } = this.state;
     const item = {
-      [evt.target.name]: evt.target.value,
+      info: {
+        [evt.target.name]: evt.target.value,
+      },
+      quizes: {},
     };
 
     this.setState({
@@ -143,15 +141,17 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
 
   addToFavorite(id) {
     const { data } = this.state;
-    const targetItem = data.filter(item => item.id === id)[0];
-    const itemRef = firebase.database().ref(`/tests/${id}`);
-    itemRef.update({ isFavorite: !targetItem.isFavorite });
+    const targetItem = data.filter(({ info }) => info.id === id)[0];
+    const itemRef = firebase.database().ref(`/tests/${id}/info`);
+    itemRef.update({
+      isFavorite: !targetItem.info.isFavorite,
+    });
   }
 
   editItem(data) {
     return new Promise(() => {
       const { state } = this;
-      const itemRef = firebase.database().ref(`/tests/${state.modal.id}`);
+      const itemRef = firebase.database().ref(`/tests/${state.modal.id}/info`);
       itemRef.update({
         ...data,
         image: data.image ? data.image.base64 : null,
@@ -177,7 +177,7 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
           ? <Loader />
           : (
             <React.Fragment>
-              <button className={classes.NewTestBtn} onClick={() => this.showModal({}, 'add')} type="button" />
+              <button className={classes.NewTestBtn} onClick={() => this.showModal(null, 'add')} type="button" />
               <WrappedComponent data={data} editor={edit} />
             </React.Fragment>
           )}
