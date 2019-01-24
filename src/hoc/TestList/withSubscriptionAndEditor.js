@@ -31,7 +31,6 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
     this.testsRef = firebase.database().ref('tests');
     this.testsRef.on('value', (snapshot) => {
       const tests = snapshot.val();
-      console.log(tests);
       const data = Object.keys(tests || {})
         .reverse()
         .map((id) => {
@@ -44,8 +43,6 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
         data,
         isLoading: false,
       });
-      // const { state } = this;
-      // console.log(state.data[0].info.image);
     });
   }
 
@@ -188,8 +185,6 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
       onRemove: test => this.showModal(test, 'delete'),
       onEdit: test => this.showModal(test, 'edit'),
     };
-
-    console.log(data);
 
     return (
       <div className={classes.Tests}>

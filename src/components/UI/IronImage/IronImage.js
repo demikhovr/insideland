@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import './IronImage.scss';
 
@@ -20,6 +21,20 @@ class IronImage extends Component {
         );
         this.ironImageRef.current.classList.add('iron-image-fade-in');
         this.preloadImageRef.current.style.background = 'none';
+      }
+    });
+  }
+
+  componentDidUpdate() {
+    const { props } = this;
+    const hdLoaderImg = new window.Image();
+    hdLoaderImg.src = props.srcLoaded;
+    hdLoaderImg.addEventListener('load', () => {
+      if (this.ironImageRef.current) {
+        this.ironImageRef.current.setAttribute(
+          'style',
+          `background-image: url('${props.srcLoaded}')`,
+        );
       }
     });
   }

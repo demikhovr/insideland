@@ -9,7 +9,6 @@ import './animation.css';
 const TestList = ({ data, editor, location }) => {
   const noDataElement = <div className={classes.EmptyList}>Тесты не созданы.</div>;
   const isEditable = Object.keys(editor).length !== 0;
-  console.log(data[0].info);
 
   return !data.length && !isEditable
     ? noDataElement

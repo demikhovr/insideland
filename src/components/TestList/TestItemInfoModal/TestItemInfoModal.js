@@ -61,7 +61,6 @@ class TestItemInfoModal extends Component {
     });
 
     try {
-      console.log(state.data, state.imageFile);
       await props.onAddItem(state.data, state.imageFile);
       this.reset();
       this.setState({
