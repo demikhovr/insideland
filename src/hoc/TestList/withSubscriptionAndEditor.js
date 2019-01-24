@@ -3,7 +3,7 @@ import firebase from 'firebase';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 import classes from '../../components/TestList/TestList.module.scss';
-import EditItemModal from '../../components/TestList/EditItemModal/EditItemModal';
+import TestItemInfoModal from '../../components/TestList/TestItemInfoModal/TestItemInfoModal';
 import Loader from '../../components/UI/Loader/Loader';
 
 const withSubscriptionAndEditor = WrappedComponent => class extends Component {
@@ -11,13 +11,12 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
     super(props);
     this.state = {
       isLoading: true,
+      data: [],
       modal: {
         isRendered: false,
         visible: false,
-        id: null,
         data: null,
       },
-      data: [],
     };
 
     this.removeCard = this.removeCard.bind(this);
@@ -32,7 +31,8 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
     this.testsRef = firebase.database().ref('tests');
     this.testsRef.on('value', (snapshot) => {
       const tests = snapshot.val();
-      const newState = Object.keys(tests || {})
+      console.log(tests);
+      const data = Object.keys(tests || {})
         .reverse()
         .map((id) => {
           const test = tests[id];
@@ -41,9 +41,11 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
         });
 
       this.setState({
-        data: newState,
+        data,
         isLoading: false,
       });
+      // const { state } = this;
+      // console.log(state.data[0].info.image);
     });
   }
 
@@ -51,39 +53,35 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
     this.testsRef.off();
   }
 
-  addItem(data) {
-    return new Promise((resolve, reject) => {
+  addItem(data, imageFile) {
+    return new Promise(async (resolve, reject) => {
       const testsRef = firebase.database().ref('tests');
-      const storageRef = firebase.storage().ref('tests');
-      const item = {
+      const imagesStorageRef = firebase.storage().ref('tests');
+      const test = {
         info: {
-          name: data.name,
-          title: data.title,
-          description: data.description,
+          ...data,
           isFavorite: false,
         },
       };
 
-      if (data.image) {
-        const imageFile = data.image;
-        const uploadTask = storageRef.child(imageFile.fileList[0].name).put(imageFile.fileList[0]);
-        uploadTask.then(
-          (snapshot) => {
-            snapshot.ref.getDownloadURL().then((downloadURL) => {
-              item.info.image = downloadURL;
-              testsRef.push(item);
-              this.hideModal();
-            });
-          },
-          () => {
-            reject();
-            this.hideModal();
-          },
-        );
+      if (imageFile) {
+        const uploadTask = imagesStorageRef
+          .child(imageFile.name)
+          .put(imageFile);
+
+        try {
+          const snapshot = await uploadTask;
+          test.info.image = await snapshot.ref.getDownloadURL();
+          testsRef.push(test);
+          this.hideModal();
+        } catch (e) {
+          this.hideModal();
+          reject(e);
+        }
       } else {
-        testsRef.push(item);
-        resolve();
+        testsRef.push(test);
         this.hideModal();
+        resolve();
       }
     });
   }
@@ -139,6 +137,40 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
     this.hideModal();
   }
 
+  editItem(data, imageFile) {
+    return new Promise(async (resolve, reject) => {
+      const { state } = this;
+      const testRef = firebase.database().ref(`/tests/${state.modal.id}`);
+      const imagesStorageRef = firebase.storage().ref('tests');
+      const test = state.data.filter(({ info }) => info.id === state.modal.id)[0];
+      test.info = {
+        ...data,
+      };
+
+      if (imageFile) {
+        const uploadTask = imagesStorageRef
+          .child(imageFile.name)
+          .put(imageFile);
+
+        try {
+          const snapshot = await uploadTask;
+          test.info.image = await snapshot.ref.getDownloadURL();
+          testRef.update(test);
+          this.hideModal();
+          resolve();
+        } catch (e) {
+          this.hideModal();
+          reject(e);
+          console.log(e);
+        }
+      } else {
+        testRef.update(test);
+        this.hideModal();
+        resolve();
+      }
+    });
+  }
+
   addToFavorite(id) {
     const { data } = this.state;
     const targetItem = data.filter(({ info }) => info.id === id)[0];
@@ -148,28 +180,16 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
     });
   }
 
-  editItem(data) {
-    return new Promise(() => {
-      const { state } = this;
-      const itemRef = firebase.database().ref(`/tests/${state.modal.id}/info`);
-      itemRef.update({
-        ...data,
-        image: data.image ? data.image.base64 : null,
-      })
-        .then(() => {
-          this.hideModal();
-        });
-    });
-  }
-
   render() {
     const { isLoading, data, modal } = this.state;
     const edit = {
       isEditable: true,
-      onRemove: test => this.showModal(test, 'delete'),
       onAddToFavorites: this.addToFavorite,
+      onRemove: test => this.showModal(test, 'delete'),
       onEdit: test => this.showModal(test, 'edit'),
     };
+
+    console.log(data);
 
     return (
       <div className={classes.Tests}>
@@ -203,7 +223,9 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
             onClose={this.hideModal}
             onAnimationEnd={() => !modal.visible && this.setState({ modal: { isRendered: false } })}
           >
-            <EditItemModal onAddItem={itemData => this.addItem(itemData)} />
+            <TestItemInfoModal
+              onAddItem={(itemData, imageFile) => this.addItem(itemData, imageFile)}
+            />
           </Rodal>
         )}
         {modal.isRendered && modal.action === 'edit'
@@ -216,7 +238,10 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
             onClose={this.hideModal}
             onAnimationEnd={() => !modal.visible && this.setState({ modal: { isRendered: false } })}
           >
-            <EditItemModal data={modal.data} onAddItem={itemData => this.editItem(itemData)} />
+            <TestItemInfoModal
+              data={modal.data}
+              onAddItem={(itemData, imageFile) => this.editItem(itemData, imageFile)}
+            />
           </Rodal>
         )}
       </div>

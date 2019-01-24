@@ -1,21 +1,28 @@
 import React, { Component } from 'react';
 import ReactFileReader from 'react-file-reader';
-import classes from './EditItemModal.module.scss';
+import classes from './TestItemInfoModal.module.scss';
 
 const DEFAULT_IMAGE_SRC = 'img/default.png';
 const DEFAULT_IMAGE_ALT = 'Default image';
+const FOCUS_INPUT_TIMEOUT = 400;
+const INITIAL_DATA = {
+  image: '',
+  name: '',
+  title: '',
+  description: '',
+};
 
-class EditItemModal extends Component {
+class TestItemInfoModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      image: '',
-      name: '',
-      title: '',
-      description: '',
+      isSaving: false,
+      data: {},
+      imageFile: null,
     };
 
     this.nameRef = React.createRef();
+
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onReset = this.onReset.bind(this);
@@ -24,43 +31,45 @@ class EditItemModal extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => this.nameRef.current.focus(), 400);
+    setTimeout(() => this.nameRef.current.focus(), FOCUS_INPUT_TIMEOUT);
     const { props } = this;
 
     if (props.data) {
-      setTimeout(() => {
-        this.setState({
-          image: {
-            base64: props.data.image || DEFAULT_IMAGE_SRC,
-            fileList: [{}],
-          },
-          name: props.data.name,
-          title: props.data.title,
-          description: props.data.description,
-        });
-      });
+      const data = {
+        ...props.data,
+      };
+
+      this.setState({ data });
     }
   }
 
   onChange({ target }) {
-    this.setState({
-      [target.name]: target.value,
-    });
+    this.setState(prevState => ({
+      data: {
+        ...prevState.data,
+        [target.name]: target.value,
+      },
+    }));
   }
 
-  onSubmit(evt) {
+  async onSubmit(evt) {
     evt.preventDefault();
     const { state, props } = this;
+
     this.setState({
       isSaving: true,
     });
-    props.onAddItem(state)
-      .then(() => {
-        this.reset();
-        this.setState({
-          isSaving: false,
-        });
+
+    try {
+      console.log(state.data, state.imageFile);
+      await props.onAddItem(state.data, state.imageFile);
+      this.reset();
+      this.setState({
+        isSaving: false,
       });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   onReset() {
@@ -68,30 +77,37 @@ class EditItemModal extends Component {
   }
 
   removeImage() {
-    this.setState({
-      image: '',
-    });
+    this.setState(prevState => ({
+      data: {
+        ...prevState.data,
+        image: '',
+      },
+      imageFile: null,
+    }));
   }
 
   reset() {
     this.setState({
-      image: '',
-      name: '',
-      title: '',
-      description: '',
+      data: INITIAL_DATA,
+      imageFile: null,
     });
   }
 
   handleFiles(files) {
-    this.setState({
-      image: files,
-    });
+    this.setState(prevState => ({
+      data: {
+        ...prevState.data,
+        image: files.base64,
+      },
+      imageFile: files.fileList[0],
+    }));
   }
 
   render() {
     const { state } = this;
-    const imgSrc = state.image ? state.image.base64 : DEFAULT_IMAGE_SRC;
-    const imgAlt = state.image ? state.image.fileList[0].name : DEFAULT_IMAGE_ALT;
+    const { data } = state;
+    const imgSrc = data.image || DEFAULT_IMAGE_SRC;
+    const imgAlt = data.image || DEFAULT_IMAGE_ALT;
 
     return (
       <form
@@ -115,7 +131,7 @@ class EditItemModal extends Component {
             >
               <button className={classes.AddNewItemBtnAddPic} type="button">Выбрать</button>
             </ReactFileReader>
-            {state.image && state.image.base64 !== DEFAULT_IMAGE_SRC
+            {data.image && data.image.base64 !== DEFAULT_IMAGE_SRC
             && (
               <button
                 className={classes.AddNewItemBtnDeletePic}
@@ -134,7 +150,7 @@ class EditItemModal extends Component {
             type="text"
             id="name"
             name="name"
-            value={state.name || ''}
+            value={data.name || ''}
             onChange={this.onChange}
             placeholder="Название"
             spellCheck="false"
@@ -148,7 +164,7 @@ class EditItemModal extends Component {
             type="text"
             id="title"
             name="title"
-            value={state.title || ''}
+            value={data.title || ''}
             onChange={this.onChange}
             placeholder="Заголовок"
             spellCheck="false"
@@ -162,7 +178,7 @@ class EditItemModal extends Component {
             type="text"
             id="description"
             name="description"
-            value={state.description || ''}
+            value={data.description || ''}
             onChange={this.onChange}
             placeholder="Описание"
             spellCheck="false"
@@ -179,4 +195,4 @@ class EditItemModal extends Component {
   }
 }
 
-export default EditItemModal;
+export default TestItemInfoModal;

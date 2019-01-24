@@ -12,7 +12,6 @@ class IronImage extends Component {
     const { props } = this;
     const hdLoaderImg = new window.Image();
     hdLoaderImg.src = props.srcLoaded;
-
     hdLoaderImg.addEventListener('load', () => {
       if (this.ironImageRef.current) {
         this.ironImageRef.current.setAttribute(
