@@ -132,16 +132,18 @@ const TestTable = ({
                       alt={test.name}
                     />
                   ) : null}
-                {editor ? (
+                {editor.isEditable ? (
                   <button
                     className="btn"
                     style={{
                       display: 'block',
-                      width: 80,
-                      height: 30,
+                      width: 60,
+                      height: 20,
                       margin: '0 auto',
                       padding: 5,
                       textAlign: 'center',
+                      fontSize: 10,
+                      lineHeight: '10px',
                     }}
                     type="button"
                     onClick={() => editor.onRemove(test.id)}
