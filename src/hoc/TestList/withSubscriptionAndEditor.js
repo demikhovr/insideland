@@ -179,7 +179,7 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
 
   render() {
     const { isLoading, data, modal } = this.state;
-    const edit = {
+    const editor = {
       isEditable: true,
       onAddToFavorites: this.addToFavorite,
       onRemove: test => this.showModal(test, 'delete'),
@@ -193,7 +193,7 @@ const withSubscriptionAndEditor = WrappedComponent => class extends Component {
           : (
             <React.Fragment>
               <button className={classes.NewTestBtn} onClick={() => this.showModal(null, 'add')} type="button" />
-              <WrappedComponent data={data} editor={edit} />
+              <WrappedComponent data={data} editor={editor} />
             </React.Fragment>
           )}
         <Rodal

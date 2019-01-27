@@ -6,9 +6,12 @@ import IronImage from '../../UI/IronImage/IronImage';
 
 const DEFAULT_IMAGE_SRC = 'img/default.png';
 
+const getPassedQuizesAmount = quizes => (Object.keys(quizes)
+  .filter(key => quizes[key].isPassed).length);
+
 const TestItem = ({
   id, image, name, title, description, isEditable,
-  onRemoveBtnClick, onEditBtnClick, isFavorite, onFavoriteBtnClick, location,
+  onRemoveBtnClick, onEditBtnClick, isFavorite, onFavoriteBtnClick, location, quizes,
 }) => (
   <div className={classes.Test}>
     <div className={classes.TestWrapper}>
@@ -35,6 +38,7 @@ const TestItem = ({
         <h3 className={classes.TestProfileName}>{name}</h3>
         <p className={classes.TestProfileTitle}>{title}</p>
         <p className={classes.TestProfileDescription}>{description}</p>
+        <p className={classes.TestProfileDescription}>{`Пройдено ${getPassedQuizesAmount(quizes || {})} из ${Object.keys(quizes || {}).length}`}</p>
         <Link
           to={{
             pathname: `${id}/`,
@@ -73,6 +77,7 @@ TestItem.propTypes = {
   onFavoriteBtnClick: PropTypes.func,
   onEditBtnClick: PropTypes.func,
   location: PropTypes.instanceOf(Object).isRequired,
+  quizes: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default TestItem;

@@ -38,33 +38,29 @@ const withSubscription = WrappedComponent => class extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { props } = this;
     const { id } = props.match.params;
-    this.itemsRef = firebase.database().ref(`tests/${id}`);
-    this.itemsRef.on('value', (snapshot) => {
-      const test = snapshot.val();
-
-      if (test) {
-        test.id = id;
-        test.quizes = testListData;
-        this.setState({
-          test,
-          isLoading: false,
-        });
-      }
+    this.itemRef = firebase.database().ref(`tests/${id}`);
+    const snapshot = await this.itemRef.once('value');
+    const test = snapshot.val();
+    console.log(testListData);
+    this.setState({
+      test,
+      isLoading: false,
     });
   }
 
   componentWillUnmount() {
-    this.itemsRef.off();
+    this.itemRef.off();
   }
 
   render() {
     const { state, props } = this;
+    const { id } = props.match.params;
     return state.isLoading
       ? <Loader />
-      : <WrappedComponent data={state.test} location={props.location} />;
+      : <WrappedComponent data={state.test} location={props.location} id={id} />;
   }
 };
 

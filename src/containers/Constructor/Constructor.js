@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import {
+  Redirect, Route, Switch, withRouter,
+} from 'react-router-dom';
 import classes from './Constructor.module.scss';
 import InnerNavigation from '../../components/InnerNavigation/InnerNavigation';
 import TestList from '../../components/TestList/TestList';
-import TestInfo from '../../components/TestInfo/TestInfo';
+import TestInfo from '../../components/TestList/TestInfo/TestInfo';
 import testListWithSubscriptionAndEditor from '../../hoc/TestList/withSubscriptionAndEditor';
 import testInfoWithSubscriptionAndEditor from '../../hoc/TestInfo/withSubscriptionAndEditor';
 import Quiz from '../Quiz/Quiz';
@@ -14,14 +16,17 @@ const links = [
 ];
 
 const TestListWithSubscriptionAndEditor = testListWithSubscriptionAndEditor(TestList);
-const WithSubscriptionAndEditor = testInfoWithSubscriptionAndEditor(TestInfo);
+const TestInfoWithSubscriptionAndEditor = testInfoWithSubscriptionAndEditor(TestInfo);
 
 const content = ({ location }) => (
   <div className={classes.ConstructorContentWrapper}>
     <div className={classes.ConstructorContent}>
       <Switch location={location}>
-        <Route path="/constructor/tests/:id/:id" component={Quiz} />
-        <Route path="/constructor/tests/:id/" component={WithSubscriptionAndEditor} />
+        {location.state
+          ? <Route path="/constructor/tests/:id/:id" component={Quiz} />
+          : <Redirect from="/constructor/tests/:id/:id" exact to="/constructor/tests/" />
+        }
+        <Route path="/constructor/tests/:id/" component={TestInfoWithSubscriptionAndEditor} />
         <Route path="/constructor/tests/" component={TestListWithSubscriptionAndEditor} />
       </Switch>
     </div>

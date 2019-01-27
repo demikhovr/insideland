@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classes from './TestStats.module.scss';
-import IronImage from '../../UI/IronImage/IronImage';
+import IronImage from '../../../UI/IronImage/IronImage';
 
 const DEFAULT_IMAGE_SRC = 'img/default.png';
 
+const getPassedQuizesAmount = quizes => (Object.keys(quizes)
+  .filter(key => quizes[key].isPassed).length);
+
 const TestStats = ({
-  image, name, title, description, isFavorite,
+  image, name, title, description, isFavorite, quizes,
 }) => (
   <div className={classes.Test}>
     <div className={classes.TestWrapper}>
@@ -19,14 +22,15 @@ const TestStats = ({
         <h3 className={classes.TestProfileName}>{name}</h3>
         <p className={classes.TestProfileTitle}>{title}</p>
         <p className={classes.TestProfileDescription}>{description}</p>
+        <p className={classes.TestProfileDescription}>{`Пройдено ${getPassedQuizesAmount(quizes || {})} из ${Object.keys(quizes || {}).length}`}</p>
       </div>
     </div>
   </div>
 );
 
 TestStats.defaultProps = {
-  image: PropTypes.string,
-  title: PropTypes.string,
+  image: '',
+  title: '',
 };
 
 TestStats.propTypes = {
@@ -35,6 +39,7 @@ TestStats.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   isFavorite: PropTypes.bool.isRequired,
+  quizes: PropTypes.instanceOf(Object).isRequired,
 };
 
 
