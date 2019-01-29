@@ -4,11 +4,16 @@ import classes from './Quiz.module.scss';
 import ActiveQuiz from '../../components/ActiveQuiz/ActiveQuiz';
 import FinishedQuiz from '../../components/FinishedQuiz/FinishedQuiz';
 import Loader from '../../components/UI/Loader/Loader';
+import Timer from '../../components/Timer/Timer';
+
+const SECOND = 1000;
+const formattedSeconds = sec => `${Math.floor(sec / 60)}:${(`0${sec % 60}`).slice(-2)}`;
 
 class Quiz extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      time: 0,
       results: {},
       isLoading: true,
     };
@@ -36,6 +41,8 @@ class Quiz extends Component {
         ...response.quiz,
         isLoading: false,
       });
+
+      this.start();
     } catch (e) {
       console.log(e);
     }
@@ -43,6 +50,7 @@ class Quiz extends Component {
 
   componentWillUnmount() {
     this.testRef.off();
+    this.stop();
   }
 
   onAnswerClickHandler(answerId) {
@@ -78,6 +86,7 @@ class Quiz extends Component {
             await this.testRef.update({
               isFinished: true,
               isPassed: this.areAllAnswersRight(),
+              time: formattedSeconds(state.time),
             });
             this.setState({ isFinished: true });
           } catch (e) {
@@ -111,6 +120,18 @@ class Quiz extends Component {
     });
   }
 
+  start() {
+    this.timerId = setInterval(() => this.tick(), SECOND);
+  }
+
+  stop() {
+    clearTimeout(this.timerId);
+  }
+
+  tick() {
+    this.setState(prevState => ({ time: prevState.time + 1 }));
+  }
+
   isQuizFinished() {
     const { state } = this;
     return state.activeQuestion + 1 === state.quiz.length;
@@ -129,6 +150,7 @@ class Quiz extends Component {
         <FinishedQuiz
           results={state.results}
           quiz={state.quiz}
+          time={state.time}
           onRetry={this.onRetryHandler}
           location={props.location}
         />
@@ -150,6 +172,7 @@ class Quiz extends Component {
           ? <Loader />
           : (
             <div className={classes.QuizWrapper}>
+              {!state.isFinished ? <Timer time={formattedSeconds(state.time)} /> : null}
               <h1>Ответьте на все вопросы</h1>
               {getCurrentQuiz()}
             </div>

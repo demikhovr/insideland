@@ -125,7 +125,7 @@ const withSubscription = WrappedComponent => class extends Component {
     this.itemsRef = firebase.database().ref(`tests/${id}/quizes`);
 
     const newTest = {
-      type: 'numeric', name: 'Тест 1', questionCount: '5', time: '5:00', isFinished: null, quiz,
+      type: 'numeric', name: 'Тест 1', questionCount: '5', isFinished: null, quiz,
     };
     const { key } = await this.itemsRef.push(newTest);
 

@@ -120,7 +120,7 @@ const TestTable = ({
                 {`${test.questionCount}`}
               </Td>
               <Td to={`${test.id}`} location={location} id={id}>
-                {`${test.time}`}
+                {`${test.time || ''}`}
               </Td>
               <Td>
                 {test.isPassed !== null && test.isPassed !== undefined
