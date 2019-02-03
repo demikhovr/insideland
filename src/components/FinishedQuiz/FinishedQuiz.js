@@ -49,7 +49,7 @@ const FinishedQuiz = ({
       <div>
         <button className="btn" onClick={onRetry} type="button">Повторить</button>
         <Link to={location.state.from}>
-          <button className="btn" type="button">Назад к тестам</button>
+          <span className="btn">Назад к тестам</span>
         </Link>
       </div>
     </div>
