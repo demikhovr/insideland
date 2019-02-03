@@ -31,6 +31,7 @@ const TestStats = ({
 TestStats.defaultProps = {
   image: '',
   title: '',
+  quizes: [],
 };
 
 TestStats.propTypes = {
@@ -39,7 +40,7 @@ TestStats.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   isFavorite: PropTypes.bool.isRequired,
-  quizes: PropTypes.instanceOf(Object).isRequired,
+  quizes: PropTypes.instanceOf(Object),
 };
 
 

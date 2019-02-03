@@ -1,0 +1,87 @@
+.Tests {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.NewTestBtn {
+  align-self: stretch;
+  position: relative;
+  width: 320px;
+  max-height: 415px;
+  margin: 20px;
+  padding: 10px;
+  background-color: transparent;
+  border: 2px solid #cccccc;
+  border-radius: 10px;
+  box-shadow: 0 8px 40px transparent;
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.NewTestBtn::before,
+.NewTestBtn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 3px;
+  background-color: #cccccc;
+  transition: background-color 0.3s ease;
+}
+
+.NewTestBtn::before {
+  transform: translate3d(-50%, -50%, 0) rotate(0deg);
+}
+
+.NewTestBtn::after {
+  transform: translate3d(-50%, -50%, 0) rotate(-90deg);
+}
+
+.NewTestBtn:hover,
+.NewTestBtn:focus {
+  border-color: rgba(52, 37, 106, 1);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+}
+
+.NewTestBtn:hover::before,
+.NewTestBtn:hover::after,
+.NewTestBtn:focus::before,
+.NewTestBtn:focus::after {
+  background-color: rgba(52, 37, 106, 1);
+}
+
+.DeleteModal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.DeleteModalBtn {
+  color: #ffffff;
+  width: 100px;
+  height: 35px;
+  outline: none;
+  border: none;
+  display: block;
+  cursor: pointer;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 14px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 70px;
+  box-shadow: 0 13px 26px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.16);
+  background: linear-gradient(to right, rgba(52,37,106,1) , rgba(107,67,156,1));
+}
+
+.EmptyList {
+  padding-top: 20px;
+  font-size: 16px;
+  line-height: 18px;
+}

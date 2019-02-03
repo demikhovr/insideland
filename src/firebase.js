@@ -9,10 +9,6 @@ import firebase from 'firebase';
 //   messagingSenderId: '110475419154',
 // };
 //
-// firebase.initializeApp(config);
-// export const provider = new firebase.auth.GoogleAuthProvider();
-// export const auth = firebase.auth();
-// export default firebase;
 
 const config = {
   apiKey: 'AIzaSyBmRvFOyC535DEUyRYfi85mBYoJIquAoVg',
@@ -25,3 +21,4 @@ const config = {
 firebase.initializeApp(config);
 export const provider = new firebase.auth.GoogleAuthProvider();
 export const auth = firebase.auth();
+export default firebase;

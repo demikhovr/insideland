@@ -24,23 +24,20 @@ class App extends Component {
     });
   }
 
-  login() {
-    auth.signInWithPopup(provider)
-      .then((result) => {
-        const { user } = result;
-        this.setState({
-          user,
-        });
-      });
+  async login() {
+    const result = await auth.signInWithPopup(provider);
+
+    const { user } = result;
+    this.setState({
+      user,
+    });
   }
 
-  logout() {
-    auth.signOut()
-      .then(() => {
-        this.setState({
-          user: null,
-        });
-      });
+  async logout() {
+    await auth.signOut();
+    this.setState({
+      user: null,
+    });
   }
 
   render() {

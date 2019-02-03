@@ -60,6 +60,7 @@ TestItem.defaultProps = {
 };
 
 TestItem.defaultProps = {
+  quizes: [],
   onRemoveBtnClick: () => {},
   onFavoriteBtnClick: () => {},
   onEditBtnClick: () => {},
@@ -77,7 +78,7 @@ TestItem.propTypes = {
   onFavoriteBtnClick: PropTypes.func,
   onEditBtnClick: PropTypes.func,
   location: PropTypes.instanceOf(Object).isRequired,
-  quizes: PropTypes.instanceOf(Object).isRequired,
+  quizes: PropTypes.instanceOf(Object),
 };
 
 export default TestItem;

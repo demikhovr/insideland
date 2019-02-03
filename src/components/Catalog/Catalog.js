@@ -1,21 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Redirect, Route, Switch, withRouter,
+  Redirect,
+  Route,
+  Switch,
+  withRouter,
 } from 'react-router-dom';
 import classes from './Catalog.module.scss';
-import InnerNavigation from '../../components/InnerNavigation/InnerNavigation';
-import TestList from '../../components/TestList/TestList';
-import TestInfo from '../../components/TestList/TestInfo/TestInfo';
-import testListWithSubscription from '../../hoc/TestList/withSubscription';
+import InnerNavigation from '../InnerNavigation/InnerNavigation';
+import TestList from '../../containers/TestList/TestList';
+import TestInfo from '../TestList/TestInfo/TestInfo';
 import testInfoWithSubscription from '../../hoc/TestInfo/withSubscription';
-import Quiz from '../Quiz/Quiz';
+import Quiz from '../../containers/Quiz/Quiz';
 
 const links = [
   { to: '/catalog/tests/', label: 'Тесты', exact: false },
 ];
 
-const TestListWithSubscription = testListWithSubscription(TestList);
 const TestInfoWithSubscription = testInfoWithSubscription(TestInfo);
 
 const content = ({ location }) => (
@@ -24,10 +25,10 @@ const content = ({ location }) => (
       <Switch location={location}>
         {location.state
           ? <Route path="/catalog/tests/:id/:id" component={Quiz} />
-          : <Redirect from="/catalog/tests/:id/:id" exact to="/constructor/tests/" />
+          : <Redirect from="/catalog/tests/:id/:id" exact to="/catalog/tests/" />
         }
         <Route path="/catalog/tests/:id/" component={TestInfoWithSubscription} />
-        <Route path="/catalog/tests/" component={TestListWithSubscription} />
+        <Route path="/catalog/tests/" component={TestList} />
       </Switch>
     </div>
   </div>);
@@ -42,7 +43,7 @@ const Catalog = () => (
 );
 
 content.propTypes = {
-  location: PropTypes.shape().isRequired,
+  location: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default Catalog;

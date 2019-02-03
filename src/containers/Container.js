@@ -5,8 +5,8 @@ import {
 import PropTypes from 'prop-types';
 import Layout from '../hoc/Layout/Layout';
 import Main from './Main/Main';
-import Catalog from './Catalog/Catalog';
-import Constructor from './Constructor/Constructor';
+import Catalog from '../components/Catalog/Catalog';
+import Constructor from '../components/Constructor/Constructor';
 
 const Container = ({ user }) => (
   <Layout>

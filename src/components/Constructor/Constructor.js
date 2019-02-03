@@ -1,21 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Redirect, Route, Switch, withRouter,
+  Redirect,
+  Route,
+  Switch,
+  withRouter,
 } from 'react-router-dom';
 import classes from './Constructor.module.scss';
-import InnerNavigation from '../../components/InnerNavigation/InnerNavigation';
-import TestList from '../../components/TestList/TestList';
-import TestInfo from '../../components/TestList/TestInfo/TestInfo';
-import testListWithSubscriptionAndEditor from '../../hoc/TestList/withSubscriptionAndEditor';
+import InnerNavigation from '../InnerNavigation/InnerNavigation';
+import EditableTestList from '../../containers/EditableTestList/EditableTestList';
+import TestInfo from '../TestList/TestInfo/TestInfo';
 import testInfoWithSubscriptionAndEditor from '../../hoc/TestInfo/withSubscriptionAndEditor';
-import Quiz from '../Quiz/Quiz';
+import Quiz from '../../containers/Quiz/Quiz';
 
 const links = [
   { to: '/constructor/tests/', label: 'Тесты', exact: false },
 ];
 
-const TestListWithSubscriptionAndEditor = testListWithSubscriptionAndEditor(TestList);
 const TestInfoWithSubscriptionAndEditor = testInfoWithSubscriptionAndEditor(TestInfo);
 
 const content = ({ location }) => (
@@ -27,7 +28,7 @@ const content = ({ location }) => (
           : <Redirect from="/constructor/tests/:id/:id" exact to="/constructor/tests/" />
         }
         <Route path="/constructor/tests/:id/" component={TestInfoWithSubscriptionAndEditor} />
-        <Route path="/constructor/tests/" component={TestListWithSubscriptionAndEditor} />
+        <Route path="/constructor/tests/" component={EditableTestList} />
       </Switch>
     </div>
   </div>
@@ -43,7 +44,7 @@ const Constructor = () => (
 );
 
 content.propTypes = {
-  location: PropTypes.shape().isRequired,
+  location: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default Constructor;

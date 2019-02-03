@@ -59,16 +59,11 @@ class TestItemInfoModal extends Component {
     this.setState({
       isSaving: true,
     });
-
-    try {
-      await props.onAddItem(state.data, state.imageFile);
-      this.reset();
-      this.setState({
-        isSaving: false,
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    await props.onAddTest(state.data, state.imageFile);
+    this.reset();
+    this.setState({
+      isSaving: false,
+    });
   }
 
   onReset() {
