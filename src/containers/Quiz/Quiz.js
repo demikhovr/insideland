@@ -15,6 +15,9 @@ class Quiz extends Component {
     this.state = {
       time: 0,
       results: {},
+      isFinished: false,
+      activeQuestion: 0,
+      answerState: null,
       isLoading: true,
     };
     this.onAnswerClickHandler = this.onAnswerClickHandler.bind(this);
@@ -30,6 +33,7 @@ class Quiz extends Component {
       this.testRef = firebase.database().ref(`tests/${parentId}/quizes/${id}`);
       const snapshot = await this.testRef.once('value');
       const response = snapshot.val();
+      console.log(response);
 
       if (!response.isPassed) {
         await this.testRef.update({
@@ -38,7 +42,7 @@ class Quiz extends Component {
       }
 
       this.setState({
-        ...response.quiz,
+        quiz: response.quiz,
         isLoading: false,
       });
 
@@ -168,7 +172,7 @@ class Quiz extends Component {
 
     return (
       <div className={classes.Quiz}>
-        {state.isLoading
+        {state.isLoading || !state.quiz
           ? <Loader />
           : (
             <div className={classes.QuizWrapper}>

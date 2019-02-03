@@ -7,7 +7,8 @@
   font-weight: 700;
   font-size: 12px;
   text-transform: uppercase;
-  color: #000000;
+  color: #ffffff;
+  background-image: linear-gradient(to right, rgba(52,37,106,1) , rgba(107,67,156,1));
 }
 
 .Button:hover {
@@ -23,20 +24,11 @@
 }
 
 .Button:disabled {
-  color: #000000;
   background-color: #cccccc;
   cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .error {
   background-color: rgba(240, 87, 108, 1);
-}
-
-.success {
-  background-color: rgba(161, 240, 69, 1);
-}
-
-.primary {
-  color: #ffffff;
-  background-color: #2884f6;
 }

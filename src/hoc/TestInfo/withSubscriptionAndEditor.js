@@ -1,97 +1,8 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
+import Rodal from 'rodal';
 import Loader from '../../components/UI/Loader/Loader';
-
-// const testListData = [
-//   {
-//     id: 1, type: 'numeric', name: 'Тест 1', questionCount: '15', time: '22:00', isFinished: null,
-//   },
-//   {
-//     id: 2, type: 'numeric', name: 'Тест 1', questionCount: '15', time: '22:00', isFinished: null,
-//   },
-//   {
-//     id: 3, type: 'numeric', name: 'Тест 1', questionCount: '15', time: '22:00', isFinished: null,
-//   },
-//   {
-//     id: 4, type: 'verbal', name: 'Тест 2', questionCount: '5', time: '15:00', isFinished: null,
-//   },
-//   {
-//     id: 5, type: 'verbal', name: 'Тест 2', questionCount: '5', time: '15:00', isFinished: null,
-//   },
-//   {
-//     id: 6, type: 'logical', name: 'Тест 1', questionCount: '24', time: '30:00', isFinished: null,
-//   },
-//   {
-//     id: 7, type: 'logical', name: 'Тест 1', questionCount: '24', time: '30:00', isFinished: null,
-//   },
-//   {
-//     id: 8, type: 'logical', name: 'Тест 1', questionCount: '24', time: '30:00', isFinished: null,
-//   },
-// ];
-
-const quiz = {
-  results: {}, // { [id]: 'success' 'error' }
-  isFinished: false,
-  activeQuestion: 0,
-  answerState: null, // { [id]: 'success' 'error' }
-  quiz: [
-    {
-      id: 1,
-      question: '2 + 2 ?',
-      answers: [
-        { text: '125', id: 1 },
-        { text: '2', id: 2 },
-        { text: '3', id: 3 },
-        { text: '4', id: 4 },
-      ],
-      rightAnswerId: 4,
-    },
-    {
-      id: 2,
-      question: 'Вопрос?',
-      answers: [
-        { text: 'Ответ?', id: 1 },
-        { text: 'Да', id: 2 },
-        { text: 'Нет', id: 3 },
-        { text: 'Лопата', id: 4 },
-      ],
-      rightAnswerId: 2,
-    },
-    {
-      id: 3,
-      question: 'Привет?',
-      answers: [
-        { text: 'Да', id: 1 },
-        { text: 'Нет', id: 2 },
-        { text: 'Привет', id: 3 },
-        { text: 'Что?', id: 4 },
-      ],
-      rightAnswerId: 3,
-    },
-    {
-      id: 4,
-      question: 'Какого цвета небо?',
-      answers: [
-        { text: 'Черный', id: 1 },
-        { text: 'Синий', id: 2 },
-        { text: 'Красный', id: 3 },
-        { text: 'Зеленый', id: 4 },
-      ],
-      rightAnswerId: 2,
-    },
-    {
-      id: 5,
-      question: 'В каком году основали Санкт-Петербург?',
-      answers: [
-        { text: '1700', id: 1 },
-        { text: '1702', id: 2 },
-        { text: '1703', id: 3 },
-        { text: '1803', id: 4 },
-      ],
-      rightAnswerId: 3,
-    },
-  ],
-};
+import QuizCreator from '../../containers/QuizCreator/QuizCreator';
 
 const withSubscription = WrappedComponent => class extends Component {
   constructor(props) {
@@ -99,7 +10,15 @@ const withSubscription = WrappedComponent => class extends Component {
     this.state = {
       test: {},
       isLoading: true,
+      modal: {
+        isRendered: false,
+        visible: false,
+        data: null,
+      },
     };
+
+    this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
   }
 
   componentDidMount() {
@@ -119,13 +38,13 @@ const withSubscription = WrappedComponent => class extends Component {
     this.itemRef.off();
   }
 
-  async onAdd() {
+  async onAdd(data) {
     const { props } = this;
     const { id } = props.match.params;
     this.itemsRef = firebase.database().ref(`tests/${id}/quizes`);
 
     const newTest = {
-      type: 'numeric', name: 'Тест 1', questionCount: '5', isFinished: null, quiz,
+      type: 'numeric', name: 'Тест 1', questionCount: data.length, isFinished: null, quiz: data,
     };
     const { key } = await this.itemsRef.push(newTest);
 
@@ -135,6 +54,7 @@ const withSubscription = WrappedComponent => class extends Component {
     };
 
     firebase.database().ref().update(updates);
+    this.hideModal();
   }
 
   onRemove(testId) {
@@ -144,22 +64,73 @@ const withSubscription = WrappedComponent => class extends Component {
     firebase.database().ref(`quizes/${testId}`).remove();
   }
 
+  showModal(id, action) {
+    // const { props } = this;
+    // const itemData = props.tests.filter(test => test.id === id);
+    this.setState({
+      modal: {
+        isRendered: true,
+        visible: true,
+        id,
+        action,
+        // data: itemData.length ? itemData[0].info : null,
+      },
+    });
+  }
+
+  hideModal() {
+    this.setState(prevState => ({
+      modal: {
+        isRendered: prevState.modal.isRendered,
+        visible: false,
+        id: null,
+        action: prevState.modal.action,
+        // data: null,
+      },
+    }));
+  }
+
   render() {
     const { state, props } = this;
+    const { modal } = state;
 
     const editor = {
       isEditable: true,
       onRemove: id => this.onRemove(id),
-      onAddToFavorites: this.addToFavorite,
-      onEdit: test => this.showModal(test, 'edit'),
-      onAdd: () => this.onAdd(),
+      onAdd: quiz => this.showModal(quiz, 'add'),
     };
 
     const { id } = props.match.params;
 
-    return state.isLoading
-      ? <Loader />
-      : <WrappedComponent data={state.test} location={props.location} editor={editor} id={id} />;
+    return (
+      <div>
+        {state.isLoading
+          ? <Loader />
+          : (
+            <WrappedComponent
+              data={state.test}
+              location={props.location}
+              editor={editor}
+              id={id}
+            />
+          )}
+        {modal.isRendered && modal.action === 'add'
+        && (
+          <Rodal
+            visible={modal.visible}
+            width={800}
+            height={650}
+            closeOnEsc
+            onClose={this.hideModal}
+            onAnimationEnd={() => !modal.visible && this.setState({ modal: { isRendered: false } })}
+          >
+            <QuizCreator
+              onAdd={quiz => this.onAdd(quiz)}
+            />
+          </Rodal>
+        )}
+      </div>
+    );
   }
 };
 
