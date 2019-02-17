@@ -125,16 +125,16 @@
   cursor: pointer;
 
   &.BtnRemove {
-    background-image: url("img/icon-remove.svg");
+    background-image: url("../../../img/icon-remove.svg");
   }
 
   &.BtnCopy {
-    background-image: url("img/icon-copy.svg");
+    background-image: url("../../../img/icon-copy.svg");
   }
 
   &.BtnEdit {
     display: none;
-    background-image: url("img/icon-edit.svg");
+    background-image: url("../../../img/icon-edit.svg");
   }
 }
 
