@@ -47,7 +47,6 @@ class IronImage extends Component {
         />
         <div
           className="iron-image-preload"
-          style={{ backgroundImage: "url('img/default.png')" }}
           ref={this.preloadImageRef}
         />
       </div>
