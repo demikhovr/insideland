@@ -13,7 +13,12 @@ import {
   STOP_TIMER,
   TICK_TIMER,
   REMOVE_QUIZ_SUCCESS,
-  REMOVE_QUIZ_ERROR, ADD_NEW_QUIZ_START, ADD_NEW_QUIZ_SUCCESS, ADD_NEW_QUIZ_ERROR,
+  REMOVE_QUIZ_ERROR,
+  ADD_NEW_QUIZ_START,
+  ADD_NEW_QUIZ_SUCCESS,
+  ADD_NEW_QUIZ_ERROR,
+  COPY_QUIZ_SUCCESS,
+  COPY_QUIZ_ERROR,
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -112,6 +117,19 @@ export default (state = initialState, action) => {
         quizes: state.quizes.filter(quiz => quiz.id !== action.id),
       };
     case REMOVE_QUIZ_ERROR:
+      return {
+        ...state,
+        error: action.error,
+      };
+    case COPY_QUIZ_SUCCESS:
+      return {
+        ...state,
+        quizes: [
+          ...state.quizes,
+          action.quiz,
+        ],
+      };
+    case COPY_QUIZ_ERROR:
       return {
         ...state,
         error: action.error,

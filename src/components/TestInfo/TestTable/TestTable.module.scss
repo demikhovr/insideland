@@ -103,5 +103,40 @@
   }
 }
 
+.BtnWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Btn {
+  width: 20px;
+  height: 20px;
+  margin: 0 3px;
+  padding: 0;
+  font-size: 10px;
+  line-height: 10px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 15px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  &.BtnRemove {
+    background-image: url("/img/icon-remove.svg");
+  }
+
+  &.BtnCopy {
+    background-image: url("/img/icon-copy.svg");
+  }
+
+  &.BtnEdit {
+    display: none;
+    background-image: url("/img/icon-edit.svg");
+  }
+}
+
 
 

@@ -1,10 +1,12 @@
 import {
   CREATE_QUIZ_QUESTION,
   RESET,
+  SET_QUIZ_NAME,
 } from '../actions/actionTypes';
 
 const initialState = {
   quiz: [],
+  name: '',
 };
 
 export default (state = initialState, action) => {
@@ -17,6 +19,11 @@ export default (state = initialState, action) => {
     case RESET:
       return {
         ...initialState,
+      };
+    case SET_QUIZ_NAME:
+      return {
+        ...state,
+        name: action.name,
       };
     default:
       return state;

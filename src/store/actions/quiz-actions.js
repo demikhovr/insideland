@@ -18,6 +18,8 @@ import {
   ADD_NEW_QUIZ_START,
   ADD_NEW_QUIZ_SUCCESS,
   ADD_NEW_QUIZ_ERROR,
+  COPY_QUIZ_ERROR,
+  COPY_QUIZ_SUCCESS,
 } from './actionTypes';
 
 const SECOND = 1000;
@@ -202,6 +204,33 @@ export const removeQuiz = (testId, id) => async (dispatch) => {
   }
 };
 
+export const copyQuizSuccess = quiz => ({
+  type: COPY_QUIZ_SUCCESS,
+  quiz,
+});
+
+export const copyQuizError = error => ({
+  type: COPY_QUIZ_ERROR,
+  error,
+});
+
+export const copyQuiz = (testId, id) => async (dispatch, getState) => {
+  const { quizes } = getState().quiz;
+  const newQuiz = {
+    ...quizes.find(quizEl => quizEl.id === id),
+    id: null,
+    time: null,
+  };
+
+  try {
+    const response = await axios.post(`tests/${testId}/quizes.json`, newQuiz);
+    newQuiz.id = response.data.name;
+    dispatch(copyQuizSuccess(newQuiz));
+  } catch (error) {
+    dispatch(copyQuizError(error));
+  }
+};
+
 export const addNewQuizStart = () => ({
   type: ADD_NEW_QUIZ_START,
 });
@@ -216,16 +245,16 @@ export const addNewQuizError = error => ({
   error,
 });
 
-export const addNewQuiz = (id, data) => async (dispatch) => {
+export const addNewQuiz = (id, name, quiz) => async (dispatch) => {
   dispatch(addNewQuizStart());
 
   try {
-    const quiz = {
-      type: 'numeric', name: 'Тест 1', questionCount: data.length, isFinished: null, quiz: data,
+    const newQuiz = {
+      type: 'numeric', name, questionCount: quiz.length, isFinished: null, quiz,
     };
-    const response = await axios.post(`tests/${id}/quizes.json`, quiz);
-    quiz.id = response.data.name;
-    dispatch(addNewQuizSuccess(quiz));
+    const response = await axios.post(`tests/${id}/quizes.json`, newQuiz);
+    newQuiz.id = response.data.name;
+    dispatch(addNewQuizSuccess(newQuiz));
   } catch (err) {
     dispatch(addNewQuizError(err));
   }

@@ -5,7 +5,7 @@ import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
 import Select from '../../components/UI/Select/Select';
 import { createControl, validate, validateForm } from '../../form/formFramework';
-import { createQuizQuestion, reset } from '../../store/actions/create-quiz-actions';
+import { createQuizQuestion, reset, setQuizName } from '../../store/actions/create-quiz-actions';
 
 const createOptionControl = number => createControl({
   label: `Вариант ${number}`,
@@ -33,9 +33,15 @@ class QuizCreator extends Component {
       formControls: createFormControls(),
     };
 
+    this.onInputName = this.onInputName.bind(this);
     this.selectChangeHandler = this.selectChangeHandler.bind(this);
     this.addQuestionHandler = this.addQuestionHandler.bind(this);
     this.createQuizHandler = this.createQuizHandler.bind(this);
+  }
+
+  onInputName({ target }) {
+    const { props } = this;
+    props.setQuizName(target.value);
   }
 
   addQuestionHandler(evt) {
@@ -76,7 +82,7 @@ class QuizCreator extends Component {
       formControls: createFormControls(),
     });
 
-    props.onAdd(props.quiz);
+    props.onAdd(props.name, props.quiz);
     props.reset();
   }
 
@@ -143,6 +149,7 @@ class QuizCreator extends Component {
       <div className={classes.QuizCreator}>
         <div>
           <h1>Создание теста</h1>
+          <input className={classes.NameInput} type="text" placeholder="Название" onInput={this.onInputName} />
           <form onSubmit={evt => evt.preventDefault()}>
             {this.renderControls()}
             {select}
@@ -169,10 +176,12 @@ class QuizCreator extends Component {
 
 const mapStateToProps = state => ({
   quiz: state.create.quiz,
+  name: state.create.name,
 });
 
 const mapDispatchToProps = dispatch => ({
   createQuizQuestion: item => dispatch(createQuizQuestion(item)),
+  setQuizName: item => dispatch(setQuizName(item)),
   reset: () => dispatch(reset()),
 });
 

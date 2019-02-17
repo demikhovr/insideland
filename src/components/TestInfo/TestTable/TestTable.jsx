@@ -44,7 +44,7 @@ const TestTable = ({
           <th>Название</th>
           <th>Количество вопросов</th>
           <th>Время прохождения</th>
-          <th>Пройден</th>
+          {!editor.isEditable ? <th>Пройден</th> : <th>Редактор</th>}
         </tr>
       </thead>
       <tbody>
@@ -87,7 +87,7 @@ const TestTable = ({
                 {`${quiz.time || ''}`}
               </Td>
               <Td>
-                {quiz.isPassed !== null && quiz.isPassed !== undefined
+                {!editor.isEditable && quiz.isPassed !== null && quiz.isPassed !== undefined
                   ? (
                     <img
                       width="30"
@@ -97,24 +97,26 @@ const TestTable = ({
                     />
                   ) : null}
                 {editor.isEditable ? (
-                  <button
-                    className="btn"
-                    // tmp styles
-                    style={{
-                      display: 'block',
-                      width: 60,
-                      height: 20,
-                      margin: '0 auto',
-                      padding: 5,
-                      textAlign: 'center',
-                      fontSize: 10,
-                      lineHeight: '10px',
-                    }}
-                    type="button"
-                    onClick={() => editor.onRemove(quiz.id)}
-                  >
-                    Удалить
-                  </button>
+                  <span className={classes.BtnWrapper}>
+                    <button
+                      className={[classes.Btn, classes.BtnEdit].join(' ')}
+                      type="button"
+                      title="Изменить"
+                      onClick={() => editor.onEdit(quiz.id)}
+                    />
+                    <button
+                      className={[classes.Btn, classes.BtnCopy].join(' ')}
+                      type="button"
+                      title="Копировать"
+                      onClick={() => editor.onCopy(quiz.id)}
+                    />
+                    <button
+                      className={[classes.Btn, classes.BtnRemove].join(' ')}
+                      type="button"
+                      title="Удалить"
+                      onClick={() => editor.onRemove(quiz.id)}
+                    />
+                  </span>
                 ) : null}
               </Td>
             </tr>

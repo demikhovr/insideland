@@ -5,7 +5,12 @@ import Loader from '../../components/UI/Loader/Loader';
 import classes from './EditableTestInfo.module.scss';
 import TestTable from '../../components/TestInfo/TestTable/TestTable';
 import TestStats from '../../components/TestInfo/TestStats/TestStats';
-import { addNewQuiz, fetchQuizes, removeQuiz } from '../../store/actions/quiz-actions';
+import {
+  addNewQuiz,
+  copyQuiz,
+  fetchQuizes,
+  removeQuiz,
+} from '../../store/actions/quiz-actions';
 import QuizCreator from '../QuizCreator/QuizCreator';
 
 class EditableTestInfo extends Component {
@@ -28,6 +33,12 @@ class EditableTestInfo extends Component {
     const { props } = this;
     const { id } = props.match.params;
     props.fetchQuizes(id);
+  }
+
+  onCopy(id) {
+    const { props } = this;
+    const { id: testId } = props.match.params;
+    props.copyQuiz(testId, id);
   }
 
   onRemove(id) {
@@ -62,10 +73,10 @@ class EditableTestInfo extends Component {
     }));
   }
 
-  async addQuiz(data) {
+  async addQuiz(quiz, name) {
     const { props } = this;
     const { id } = props.match.params;
-    await props.addNewQuiz(id, data);
+    await props.addNewQuiz(id, quiz, name);
     this.hideModal();
   }
 
@@ -75,6 +86,7 @@ class EditableTestInfo extends Component {
 
     const editor = {
       isEditable: true,
+      onCopy: id => this.onCopy(id),
       onRemove: id => this.onRemove(id),
       onAdd: quiz => this.showModal(quiz, 'add'),
     };
@@ -134,8 +146,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchQuizes: id => dispatch(fetchQuizes(id)),
-  addNewQuiz: (id, quiz) => dispatch(addNewQuiz(id, quiz)),
+  addNewQuiz: (id, name, quiz) => dispatch(addNewQuiz(id, name, quiz)),
   removeQuiz: (testId, id) => dispatch(removeQuiz(testId, id)),
+  copyQuiz: (testId, id) => dispatch(copyQuiz(testId, id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditableTestInfo);
