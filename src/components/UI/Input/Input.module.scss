@@ -16,18 +16,18 @@
 }
 
 .Input input {
-  box-sizing: border-box;
-  border: 1px solid #bebebe;
   display: block;
+  box-sizing: border-box;
   width: 100%;
-  padding: 7px;
   margin: 0 0 5px;
+  padding: 7px;
+  border: 1px solid #bebebe;
   outline: none;
   transition: all 0.3s ease-in-out;
 }
 
 .Input span {
   color: #f01f30;
-  font-size: 12px;
   font-weight: 700;
+  font-size: 12px;
 }

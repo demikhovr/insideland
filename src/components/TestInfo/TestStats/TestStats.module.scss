@@ -1,0 +1,169 @@
+.Test {
+  display: inline-flex;
+  margin: 0 20px 20px;
+}
+
+.Test button {
+  background-color: transparent;
+}
+
+.TestWrapper {
+  width: 320px;
+  padding: 20px 20px 30px;
+  background-color: #fdfeff;
+  border-radius: 10px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+  transition: background .6s ease;
+}
+
+.TestTopIcons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.TestTopIcons button {
+  cursor: pointer;
+
+  &:hover i {
+    color: red;
+  }
+}
+
+.TestTopIcons button .fa-heart {
+  color: red;
+}
+
+.TestTopIcons i {
+  color: #080911;
+  transition: color 0.3s ease;
+}
+
+.TestProfile {
+  position: relative;
+  margin-top: 2.2em;
+}
+
+.TestProfileCheck {
+  position: absolute;
+  top: 90px;
+  right: 5em;
+  z-index: 100;
+}
+
+.TestProfileCheck i {
+  width: 20px;
+  height: 20px;
+  color: #fff;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  background-image: linear-gradient(to bottom right, #C90A6D, #FF48A0);
+  border-radius: 100%;
+}
+
+.TestThumbail {
+  display: flex;
+  width: 124px;
+  height: 124px;
+  margin: 0 auto 1.5em;
+  border-radius: 100%;
+  box-shadow: 0 13px 26px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.TestProfileName {
+  color: #2D354A;
+  font-weight: 600;
+  font-size: 24px;
+  text-align: center;
+}
+
+.TestProfileTitle {
+  padding-top: .5em;
+  padding-bottom: .7em;
+  color: #7C8097;
+  font-weight: 300;
+  font-size: .75em;
+  letter-spacing: 1.5px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.TestProfileDescription {
+  margin-bottom: 1.3em;
+  color: #080911;
+  font-weight: 300;
+  font-size: 14px;
+  text-align: center;
+}
+
+.TestProfileBtn {
+  display: block;
+  width: 130px;
+  height: 42px;
+  margin-right: auto;
+  margin-left: auto;
+  color: #ffffff;
+  font-weight: 300;
+  line-height: 42px;
+  text-align: center;
+  text-decoration: none;
+  background-image: linear-gradient(to bottom right, #C90A6D, #FF48A0);
+  border: none;
+  border-radius: 70px;
+  outline: none;
+  box-shadow: 0 13px 26px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.16);
+  cursor: pointer;
+}
+
+.TestSocialIcon h4 {
+  margin-top: 1.3em;
+  margin-bottom: .2em;
+  color: #080911;
+  font-size: 1em;
+}
+
+.TestSocialIcon p {
+  color: #666B7D;
+  font-size: 12px;
+}
+
+
+.TestPassedInfo {
+  position: relative;
+  width: 65px;
+  height: 65px;
+  margin: 0 auto 10px;
+}
+
+.TestPassedInfoAmount {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.TestPassedRange {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border-radius: 50%;
+  transform: rotate(90deg);
+}
+
+.TestPassedRangeCircleOne {
+  fill: transparent;
+  stroke: #e0e4e7;
+  stroke-width: 4;
+  stroke-dasharray: 105 100;
+}
+
+.TestPassedRangeCircleTwo {
+  transition: stroke-dasharray 1.3s ease;
+  fill: transparent;
+  stroke: #FF48A0;
+  stroke-width: 4;
+  stroke-dasharray: 0 100;
+}

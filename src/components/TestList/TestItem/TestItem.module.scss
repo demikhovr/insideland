@@ -9,11 +9,11 @@
 
 .TestWrapper {
   width: 320px;
-  background: #FDFEFF;
-  transition: background .6s ease;
-  border-radius: 10px;
   padding: 20px 20px 30px;
+  background-color: #FDFEFF;
+  border-radius: 10px;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+  transition: background .6s ease;
 }
 
 .TestTopIcons {
@@ -23,10 +23,10 @@
 
 .TestTopIcons button {
   cursor: pointer;
-}
 
-.TestTopIcons button:hover i {
-  color: #FF48A0;
+  &:hover i {
+    color: #FF48A0;
+  }
 }
 
 .TestTopIcons button .fa-heart {
@@ -39,88 +39,86 @@
 }
 
 .TestProfile {
-  margin-top: 2.2em;
   position: relative;
+  margin-top: 2.2em;
 }
 
 .TestProfileCheck {
-  z-index: 100;
   position: absolute;
-  right: 5em;
   top: 90px;
+  right: 5em;
+  z-index: 100;
 }
 
 .TestProfileCheck i {
-  color: #fff;
   width: 20px;
   height: 20px;
+  color: #fff;
   font-size: 12px;
   line-height: 20px;
   text-align: center;
+  background-image: linear-gradient(to bottom right, #C90A6D, #FF48A0);
   border-radius: 100%;
-  background: linear-gradient(to bottom right, #C90A6D, #FF48A0);
 }
 
 .TestThumbail {
+  display: flex;
   width: 124px;
   height: 124px;
-  display: flex;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 1.5em;
+  margin: 0 auto 1.5em;
   border-radius: 100%;
   box-shadow: 0 13px 26px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 .TestProfileName {
   color: #2D354A;
-  font-size: 24px;
   font-weight: 600;
+  font-size: 24px;
   text-align: center;
 }
 
 .TestProfileTitle {
-  color: #7C8097;
-  font-size: .75em;
-  font-weight: 300;
-  text-align: center;
   padding-top: .5em;
   padding-bottom: .7em;
+  color: #7C8097;
+  font-weight: 300;
+  font-size: .75em;
   letter-spacing: 1.5px;
+  text-align: center;
   text-transform: uppercase;
 }
 .TestProfileDescription {
   margin-bottom: 10px;
   color: #080911;
-  font-size: 14px;
   font-weight: 300;
+  font-size: 14px;
   text-align: center;
 }
 
 .TestProfileBtn {
-  text-align: center;
-  text-decoration: none;
-  color: #fff;
+  display: block;
   width: 130px;
   height: 42px;
-  line-height: 42px;
-  outline: none;
-  border: none;
-  display: block;
-  cursor: pointer;
-  font-weight: 300;
-  margin-left: auto;
   margin-right: auto;
+  margin-left: auto;
+  color: #ffffff;
+  font-weight: 300;
+  line-height: 42px;
+  text-align: center;
+  text-decoration: none;
+  background-image: linear-gradient(to bottom right, #C90A6D, #FF48A0);
+  border: none;
   border-radius: 70px;
+  outline: none;
   box-shadow: 0 13px 26px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.16);
-  background: linear-gradient(to bottom right, #C90A6D, #FF48A0);
+  cursor: pointer;
 }
 
 .TestSocialIcon h4 {
-  color: #080911;
-  font-size: 1em;
   margin-top: 1.3em;
   margin-bottom: .2em;
+  color: #080911;
+  font-size: 1em;
 }
 
 .TestSocialIcon p {
@@ -149,8 +147,8 @@
   left: 0;
   width: 100%;
   height: 100%;
+  background-color: transparent;
   border-radius: 50%;
-  background: transparent;
   transform: rotate(90deg);
 }
 
@@ -162,9 +160,9 @@
 }
 
 .TestPassedRangeCircleTwo {
+  transition: stroke-dasharray 1.3s ease;
   fill: transparent;
   stroke: #FF48A0;
   stroke-width: 4;
   stroke-dasharray: 0 100;
-  transition: stroke-dasharray 1.3s ease;
 }

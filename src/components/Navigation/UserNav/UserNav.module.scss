@@ -9,8 +9,8 @@
   width: 20px;
   height: 20px;
   margin-right: 5px;
-  border-radius: 50%;
   overflow: hidden;
+  border-radius: 50%;
 }
 
 .UserNavPic {
@@ -23,26 +23,26 @@
   display: block;
   padding: 5px;
   color: #ffffff;
-  background-color: transparent;
   text-decoration: none;
+  background-color: transparent;
   border-bottom: 1px dashed transparent;
   cursor: pointer;
   transition: border-color 0.3s ease;
-}
 
-.UserNavBtn:hover,
-.UserNavBtn:focus {
-  border-color: rgba(255, 255, 255, 0.5);
-}
+  &:hover,
+  &:focus {
+    border-color: rgba(255, 255, 255, 0.5);
+  }
 
-.UserNavBtn::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 1px;
-  background-color: #ffffff;
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #ffffff;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
 }

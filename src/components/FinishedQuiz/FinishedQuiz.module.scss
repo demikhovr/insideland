@@ -2,19 +2,18 @@
   box-sizing: border-box;
   margin: 0 10px;
   padding: 20px;
+  color: #ffffff;
   border: 2px solid #ffffff;
   border-radius: 5px;
-  color: #ffffff;
 }
 
-.FinishedQuiz ul {
-  margin: 0;
-  margin-bottom: 20px;
+.FinishedQuizList {
+  margin: 0 0 20px;
   padding: 0;
   list-style: none;
 }
 
-.FinishedQuiz li {
+.FinishedQuizItem {
   margin-bottom: 5px;
 }
 

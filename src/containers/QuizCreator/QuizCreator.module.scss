@@ -1,9 +1,9 @@
 .QuizCreator {
-  height: 100%;
-  flex-grow: 1;
   display: flex;
+  flex-grow: 1;
   justify-content: center;
   width: 100%;
+  height: 100%;
   padding-top: 10px;
   background-image: linear-gradient(to right, rgba(52,37,106,1) , rgba(107,67,156,1));
 }
@@ -15,16 +15,16 @@
 }
 
 .QuizCreator h1 {
-  font-size: 24px;
-  line-height: 24px;
   margin-bottom: 20px;
   color: #ffffff;
+  font-size: 24px;
+  line-height: 24px;
   text-align: center;
 }
 
 .QuizCreator form {
   padding: 10px;
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-  border-radius: 5px;
   background-color: #eeeeee;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }

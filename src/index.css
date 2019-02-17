@@ -12,8 +12,8 @@
 }
 
 html {
-  height: 100%;
   box-sizing: border-box;
+  height: 100%;
 }
 
 body {
@@ -24,14 +24,14 @@ body {
 }
 
 .root {
-  flex-grow: 1;
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
 }
 
 .app {
-  flex-grow: 1;
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
 }
 
@@ -40,22 +40,22 @@ a {
 }
 
 .btn {
-  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 130px;
   height: 42px;
-  outline: none;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-weight: 300;
   margin: 5px auto;
+  color: #ffffff;
+  font-weight: 300;
   text-align: center;
   text-decoration: none;
-  border-radius: 70px;
-  box-shadow: 0 13px 26px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.16);
   background: linear-gradient(to right, rgba(52,37,106,1) , rgba(107,67,156,1));
+  border: none;
+  border-radius: 70px;
+  outline: none;
+  box-shadow: 0 13px 26px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.16);
+  cursor: pointer;
 }
 
 .fa.fa-heart {

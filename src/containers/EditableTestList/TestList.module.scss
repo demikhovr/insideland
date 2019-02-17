@@ -1,23 +1,23 @@
 .Tests {
-  text-align: center;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
-  flex-wrap: wrap;
+  text-align: center;
 }
 
 .NewTestBtn {
-  align-self: stretch;
   position: relative;
+  align-self: stretch;
   width: 320px;
   max-height: 450px;
   margin: 20px;
   padding: 10px;
+  overflow: hidden;
   background-color: transparent;
   border: 2px solid #cccccc;
   border-radius: 10px;
   box-shadow: 0 8px 40px transparent;
-  overflow: hidden;
   cursor: pointer;
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
@@ -63,21 +63,21 @@
 }
 
 .DeleteModalBtn {
-  color: #ffffff;
+  display: block;
   width: 100px;
   height: 35px;
-  outline: none;
-  border: none;
-  display: block;
-  cursor: pointer;
+  margin-right: auto;
+  margin-left: auto;
+  color: #ffffff;
   font-weight: 300;
   font-size: 14px;
   line-height: 14px;
-  margin-left: auto;
-  margin-right: auto;
+  background-image: linear-gradient(to right, rgba(52,37,106,1) , rgba(107,67,156,1));
+  border: none;
   border-radius: 70px;
+  outline: none;
   box-shadow: 0 13px 26px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.16);
-  background: linear-gradient(to right, rgba(52,37,106,1) , rgba(107,67,156,1));
+  cursor: pointer;
 }
 
 .EmptyList {

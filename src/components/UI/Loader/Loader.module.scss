@@ -1,24 +1,24 @@
 .Loader {
-  display: inline-block;
   position: relative;
+  display: inline-block;
   width: 64px;
   height: 64px;
 }
 
 .Loader div {
-  animation: Loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   transform-origin: 32px 32px;
+  animation: Loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
 }
 
 .Loader div::after {
+  position: absolute;
   content: " ";
   display: block;
-  position: absolute;
   width: 6px;
   height: 6px;
-  border-radius: 50%;
-  background: linear-gradient(to right, #34256a, #6b439c);
   margin: -3px 0 0 -3px;
+  background: linear-gradient(to right, #34256a, #6b439c);
+  border-radius: 50%;
 }
 
 .Loader div:nth-child(1) {
@@ -94,8 +94,8 @@
 }
 
 .center {
-  text-align: center;
   align-self: center;
+  text-align: center;
 }
 
 @keyframes Loader {

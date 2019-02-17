@@ -78,6 +78,11 @@
   "eslintConfig": {
     "extends": "airbnb"
   },
+  "stylelint": {
+    "extends": [
+      "stylelint-config-rational-order"
+    ]
+  },
   "browserslist": [
     ">0.2%",
     "not dead",
@@ -131,6 +136,8 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^2.0.1"
+    "gh-pages": "^2.0.1",
+    "stylelint": "^9.10.1",
+    "stylelint-config-rational-order": "^0.0.4"
   }
 }

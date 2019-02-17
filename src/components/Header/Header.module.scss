@@ -3,7 +3,7 @@
   flex-shrink: 0;
   align-items: center;
   padding: 5px 50px;
-  background-image: linear-gradient(to right, rgba(52,37,106,1) , rgba(107,67,156,1));
+  background-image: linear-gradient(to right, rgba(52, 37, 106, 1), rgba(107, 67, 156, 1));
 }
 
 .HeaderInner {
@@ -16,8 +16,8 @@
 
 .HeaderLogo {
   margin-right: 100px;
-  font-size: 30px;
-  font-weight: bold;
   color: #ffffff;
+  font-weight: 700;
+  font-size: 30px;
   text-decoration: none;
 }
