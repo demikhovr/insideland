@@ -16,23 +16,23 @@ self.__precacheManifest = [
     "url": "/insideland/static/js/runtime~main.199d1f1e.js"
   },
   {
-    "revision": "1b65041ce62a28eef5c4",
-    "url": "/insideland/static/js/main.1b65041c.chunk.js"
+    "revision": "f15c4e4f439071b07507",
+    "url": "/insideland/static/js/main.f15c4e4f.chunk.js"
   },
   {
     "revision": "edf337ae763454168ef7",
     "url": "/insideland/static/js/1.edf337ae.chunk.js"
   },
   {
-    "revision": "1b65041ce62a28eef5c4",
-    "url": "/insideland/static/css/main.524c2e52.chunk.css"
+    "revision": "f15c4e4f439071b07507",
+    "url": "/insideland/static/css/main.12b42ec0.chunk.css"
   },
   {
     "revision": "edf337ae763454168ef7",
     "url": "/insideland/static/css/1.5bfa3fdb.chunk.css"
   },
   {
-    "revision": "de2f3205c0e468e031617a60b1bbf154",
+    "revision": "33f8233b10e2e71895687e4c6c9b1544",
     "url": "/insideland/index.html"
   }
 ];
