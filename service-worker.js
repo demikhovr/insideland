@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/insideland/precache-manifest.c4ae7b31b7abcf45a5949acc85dca983.js"
+  "/insideland/precache-manifest.2c279a05a5b4435729d38e19390787f1.js"
 );
 
 workbox.clientsClaim();

@@ -1,15 +1,16 @@
 {
-  "main.css": "/insideland/static/css/main.9d3959a3.chunk.css",
-  "main.js": "/insideland/static/js/main.518976d3.chunk.js",
-  "main.js.map": "/insideland/static/js/main.518976d3.chunk.js.map",
+  "main.css": "/insideland/static/css/main.524c2e52.chunk.css",
+  "main.js": "/insideland/static/js/main.1b65041c.chunk.js",
+  "main.js.map": "/insideland/static/js/main.1b65041c.chunk.js.map",
   "static/css/1.5bfa3fdb.chunk.css": "/insideland/static/css/1.5bfa3fdb.chunk.css",
   "static/js/1.edf337ae.chunk.js": "/insideland/static/js/1.edf337ae.chunk.js",
   "static/js/1.edf337ae.chunk.js.map": "/insideland/static/js/1.edf337ae.chunk.js.map",
   "runtime~main.js": "/insideland/static/js/runtime~main.199d1f1e.js",
   "runtime~main.js.map": "/insideland/static/js/runtime~main.199d1f1e.js.map",
+  "static/css/main.524c2e52.chunk.css.map": "/insideland/static/css/main.524c2e52.chunk.css.map",
+  "static/media/TestTable.module.scss": "/insideland/static/media/icon-edit.42a7ccfe.svg",
   "static/css/1.5bfa3fdb.chunk.css.map": "/insideland/static/css/1.5bfa3fdb.chunk.css.map",
-  "static/css/main.9d3959a3.chunk.css.map": "/insideland/static/css/main.9d3959a3.chunk.css.map",
   "index.html": "/insideland/index.html",
-  "precache-manifest.c4ae7b31b7abcf45a5949acc85dca983.js": "/insideland/precache-manifest.c4ae7b31b7abcf45a5949acc85dca983.js",
+  "precache-manifest.2c279a05a5b4435729d38e19390787f1.js": "/insideland/precache-manifest.2c279a05a5b4435729d38e19390787f1.js",
   "service-worker.js": "/insideland/service-worker.js"
 }
